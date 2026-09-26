@@ -1,0 +1,94 @@
+name: Test, Build and Deploy to EC2
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.12.19"
+
+      - name: Install dependencies
+        run: uv sync --frozen
+
+      - name: Lint
+        run: uv run ruff check .
+
+      - name: Django checks and tests
+        env:
+          DEBUG: "True"
+        run: |
+          uv run python source/manage.py check
+          uv run python source/manage.py makemigrations --check --dry-run
+          uv run python source/manage.py test main_app
+
+  build-and-push:
+    needs: test
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/ironlane-backend:latest
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Copy config files to EC2
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: "docker-compose.yaml,nginx.conf,nginx-http.conf"
+          target: "~/ironlane-freight"
+
+      - name: SSH into EC2 and restart
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd ~/ironlane-freight
+
+            echo "DEBUG=False" > .env
+            echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env
+            echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" >> .env
+            echo "EMAIL_HOST_USER=${{ secrets.EMAIL_HOST_USER }}" >> .env
+            echo "EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD }}" >> .env
+            echo "ALLOWED_HOSTS=${{ vars.ALLOWED_HOSTS || 'ironlane-freight.com,www.ironlane-freight.com,localhost,127.0.0.1' }}" >> .env
+            echo "ENABLE_HTTPS=${{ vars.ENABLE_HTTPS || 'True' }}" >> .env
+            echo "NGINX_CONF=${{ vars.NGINX_CONF || 'nginx.conf' }}" >> .env
+
+            sudo mkdir -p /var/www/certbot
+
+            echo "${{ secrets.DOCKER_PASSWORD }}" | sudo docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+            sudo docker compose pull
+            sudo docker compose up -d --force-recreate
+
+            sudo docker compose exec -T backend python source/manage.py migrate --noinput
+            sudo docker compose exec -T backend python source/manage.py collectstatic --noinput --clear
+
+            sudo docker image prune -f

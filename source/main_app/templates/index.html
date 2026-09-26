@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block header_class %}bg-transparent{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="hero-bg relative overflow-hidden pt-28 pb-24 text-white lg:pt-40 lg:pb-36">
+    <div class="road-lines" aria-hidden="true"></div>
+    <div class="relative mx-auto max-w-7xl px-5 lg:px-8">
+        <p class="reveal inline-flex items-center gap-2 rounded-full border border-signal/40 bg-signal/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-signal">
+            <span class="h-2 w-2 animate-pulse rounded-full bg-signal"></span> Freight dispatch &middot; web solutions &middot; fleet operations
+        </p>
+        <h1 class="reveal mt-6 max-w-4xl font-display text-5xl font-bold uppercase leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl" data-delay="1">
+            Logistics that move <span class="text-signal">freight and businesses forward.</span>
+        </h1>
+        <p class="reveal mt-6 max-w-2xl text-lg leading-relaxed text-steel-200" data-delay="2">
+            IronLane helps shippers and growing service businesses with reliable dispatch, fleet coordination and custom web platforms that make operations smoother, smarter and faster.
+        </p>
+        <div class="reveal mt-10 flex flex-col gap-4 sm:flex-row" data-delay="3">
+            <a href="{% url 'quote' %}" class="btn-primary justify-center px-8 py-4 text-base">Get a Freight Quote</a>
+            <a href="#solutions" class="btn-ghost justify-center px-8 py-4 text-base">Who We Are</a>
+        </div>
+    </div>
+</section>
+
+<!-- Stats -->
+<section class="relative z-10 -mt-12 px-5 lg:px-8">
+    <div class="mx-auto grid max-w-6xl grid-cols-2 gap-px overflow-hidden rounded-2xl bg-steel-200 shadow-xl lg:grid-cols-4">
+        <div class="bg-white p-6 text-center lg:p-8"><p class="font-display text-4xl font-bold text-asphalt"><span class="count-num" data-count="120">0</span>+</p><p class="mt-1 text-sm text-steel-500">Power units</p></div>
+        <div class="bg-white p-6 text-center lg:p-8"><p class="font-display text-4xl font-bold text-asphalt"><span class="count-num" data-count="98">0</span>%</p><p class="mt-1 text-sm text-steel-500">On-time delivery</p></div>
+        <div class="bg-white p-6 text-center lg:p-8"><p class="font-display text-4xl font-bold text-asphalt"><span class="count-num" data-count="48">0</span></p><p class="mt-1 text-sm text-steel-500">States covered</p></div>
+        <div class="bg-white p-6 text-center lg:p-8"><p class="font-display text-4xl font-bold text-asphalt"><span class="count-num" data-count="15">0</span>M</p><p class="mt-1 text-sm text-steel-500">Safe miles per year</p></div>
+    </div>
+</section>
+
+<!-- Services -->
+<section id="services" class="scroll-mt-24 py-24">
+    <div class="mx-auto max-w-7xl px-5 lg:px-8">
+        <div class="reveal max-w-3xl">
+            <p class="eyebrow">What we do</p>
+            <h2 class="section-title">Freight, dispatch, and digital systems built for real operations.</h2>
+        </div>
+        <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {% include "partials/service_card.html" with slug="ftl" title="Full Truckload" text="Dedicated 53' dry vans moving direct from dock to dock with consistent, on-time reliability." delay="1" %}
+            {% include "partials/service_card.html" with slug="ltl" title="Truck Dispatch Services" text="24/7 dispatch support for carriers and shippers who need faster load planning, tracking and communication." delay="2" %}
+            {% include "partials/service_card.html" with slug="reefer" title="Fleet Coordination" text="Live scheduling, lane management and proactive communication for fleets that need smoother execution." delay="3" %}
+            {% include "partials/service_card.html" with slug="flatbed" title="Web App Development" text="Custom web platforms, dashboards and operational tools designed around your business process." delay="4" %}
+            {% include "partials/service_card.html" with slug="dedicated" title="Business Automation" text="Workflow tools, lead capture and internal systems that reduce manual work and improve visibility." delay="5" %}
+            {% include "partials/service_card.html" with slug="other" title="Expedited & Team" text="Time-sensitive freight support with responsive communication and a dispatch team that stays on top of the plan." delay="6" %}
+        </div>
+    </div>
+</section>
+
+<!-- Brand / company identity -->
+<section id="solutions" class="scroll-mt-24 bg-asphalt py-24 text-white">
+    <div class="mx-auto max-w-7xl px-5 lg:px-8">
+        <div class="grid gap-12 lg:grid-cols-[1.1fr,0.9fr] lg:items-center">
+            <div class="reveal">
+                <p class="eyebrow text-signal">Who we are</p>
+                <h2 class="section-title text-white">We are a logistics and technology company built around reliability.</h2>
+                <p class="mt-6 max-w-xl text-lg leading-relaxed text-steel-200">IronLane blends freight movement with digital operations. We manage trucking and dispatch services while building the tools businesses need to run smarter, from quoting and scheduling to customer portals and internal workflows.</p>
+            </div>
+            <div class="reveal grid gap-4 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3" data-delay="2">
+                <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+                    <p class="text-xs font-semibold uppercase tracking-[0.2em] text-signal">01</p>
+                    <h3 class="mt-4 text-lg font-semibold text-white">Freight</h3>
+                    <p class="mt-2 text-sm leading-relaxed text-steel-300">Capacity, scheduling and reliable transport for shippers across the lower 48.</p>
+                </div>
+                <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+                    <p class="text-xs font-semibold uppercase tracking-[0.2em] text-signal">02</p>
+                    <h3 class="mt-4 text-lg font-semibold text-white">Dispatch</h3>
+                    <p class="mt-2 text-sm leading-relaxed text-steel-300">Live communication, driver coordination and load management when timing matters.</p>
+                </div>
+                <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+                    <p class="text-xs font-semibold uppercase tracking-[0.2em] text-signal">03</p>
+                    <h3 class="mt-4 text-lg font-semibold text-white">Digital</h3>
+                    <p class="mt-2 text-sm leading-relaxed text-steel-300">Custom web apps and internal tools that help businesses operate with less friction.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Fleet / why us -->
+<section id="fleet" class="scroll-mt-24 bg-steel-50 py-24">
+    <div class="mx-auto grid max-w-7xl items-center gap-16 px-5 lg:grid-cols-2 lg:px-8">
+        <div class="reveal">
+            <p class="eyebrow">Why IronLane</p>
+            <h2 class="section-title">We run the road and the systems behind it.</h2>
+            <p class="mt-6 text-lg leading-relaxed text-steel-600">We are a carrier, not a broker, and we also build the operational tools that help modern logistics teams move faster. That means better dispatch, better visibility and cleaner workflows for every customer.</p>
+            <ul class="mt-8 space-y-5">
+                <li class="flex gap-4"><span class="check">&#10003;</span><div><p class="font-semibold">Late-model equipment</p><p class="text-steel-600">Average tractor age under 3 years, serviced in our own shop.</p></div></li>
+                <li class="flex gap-4"><span class="check">&#10003;</span><div><p class="font-semibold">Real-time GPS tracking</p><p class="text-steel-600">ELD-connected trucks with live location and ETA updates on every load.</p></div></li>
+                <li class="flex gap-4"><span class="check">&#10003;</span><div><p class="font-semibold">$1M liability &middot; $250K cargo</p><p class="text-steel-600">Fully insured, with certificates issued the same day.</p></div></li>
+                <li class="flex gap-4"><span class="check">&#10003;</span><div><p class="font-semibold">One dispatcher, start to finish</p><p class="text-steel-600">A single point of contact who knows your lanes and your docks.</p></div></li>
+            </ul>
+        </div>
+        <div class="reveal grid grid-cols-2 gap-4" data-delay="2">
+            <div class="fleet-tile"><p class="fleet-num">85</p><p>Dry vans</p></div>
+            <div class="fleet-tile translate-y-8"><p class="fleet-num">40</p><p>Reefer trailers</p></div>
+            <div class="fleet-tile"><p class="fleet-num">25</p><p>Flatbeds &amp; step decks</p></div>
+            <div class="fleet-tile translate-y-8 bg-signal! text-asphalt!"><p class="fleet-num text-asphalt!">24/7</p><p>Live scheduling</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- How it works -->
+<section id="coverage" class="scroll-mt-24 py-24">
+    <div class="mx-auto max-w-7xl px-5 lg:px-8">
+        <div class="reveal mx-auto max-w-2xl text-center">
+            <p class="eyebrow">How it works</p>
+            <h2 class="section-title">From quote to POD in four steps</h2>
+            <p class="mt-4 text-steel-600">Coast-to-coast coverage across the lower 48, with regional hubs in Texas, Georgia, Illinois and California.</p>
+        </div>
+        <ol class="mt-16 grid gap-8 md:grid-cols-4">
+            <li class="reveal step" data-delay="1"><span class="step-num">01</span><p class="step-title">Request a quote</p><p>Tell us the lane, the freight and the dates. Rates back within the hour.</p></li>
+            <li class="reveal step" data-delay="2"><span class="step-num">02</span><p class="step-title">We assign a truck</p><p>A dedicated dispatcher books equipment and a driver for your pickup window.</p></li>
+            <li class="reveal step" data-delay="3"><span class="step-num">03</span><p class="step-title">Track in real time</p><p>Live GPS updates and proactive check calls from pickup to delivery.</p></li>
+            <li class="reveal step" data-delay="4"><span class="step-num">04</span><p class="step-title">Delivered &amp; invoiced</p><p>Signed POD sent the same day, with simple, accurate invoicing.</p></li>
+        </ol>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="bg-asphalt">
+    <div class="mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 px-5 py-16 lg:flex-row lg:items-center lg:px-8">
+        <div>
+            <h2 class="font-display text-3xl font-bold uppercase text-white sm:text-4xl">Need freight, dispatch, or a smarter digital system?</h2>
+            <p class="mt-2 text-steel-300">Call dispatch at <a href="tel:{{ company.phone }}" class="font-semibold text-signal">{{ company.phone }}</a> or request a quote online.</p>
+        </div>
+        <a href="{% url 'quote' %}" class="btn-primary px-8 py-4 text-base">Get Started</a>
+    </div>
+</section>
+{% endblock %}

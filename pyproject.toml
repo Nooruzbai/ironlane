@@ -1,0 +1,27 @@
+[project]
+name = "ironlane-freight"
+version = "0.1.0"
+description = "IronLane Freight - website for a trucking and freight operating company"
+readme = "README.md"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    # Django 5.2 is the current LTS release (security support until April 2028)
+    "django>=5.2.17,<5.3",
+    "pydantic[email]>=2.13,<3",
+    "pydantic-settings>=2.15,<3",
+    "gunicorn>=26.2,<27",
+    "whitenoise>=6.12,<7",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.16,<0.17",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+extend-exclude = ["source/*/migrations"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "DJ"]

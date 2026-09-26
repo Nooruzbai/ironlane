@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="IronLane truck with computer icon">
+  <rect width="128" height="128" rx="24" fill="#0f172a"/>
+  <rect x="18" y="22" width="42" height="28" rx="6" fill="#f8fafc" opacity="0.96"/>
+  <rect x="26" y="28" width="26" height="16" rx="3" fill="#f59e0b"/>
+  <path d="M18 60h54v28H18zM72 60h24l18 18v10H72z" fill="#f59e0b"/>
+  <path d="M30 90h16v10H30zm42 0h18v10H72z" fill="#f8fafc"/>
+  <circle cx="38" cy="94" r="8" fill="#f8fafc"/>
+  <circle cx="86" cy="94" r="8" fill="#f8fafc"/>
+  <circle cx="38" cy="94" r="3" fill="#0f172a"/>
+  <circle cx="86" cy="94" r="3" fill="#0f172a"/>
+</svg>

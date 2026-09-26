@@ -1,0 +1,108 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ company.name }} | Freight Dispatch &amp; Web Solutions{% endblock %}</title>
+    <meta name="description" content="{% block description %}{{ company.name }} provides freight dispatch, fleet operations and custom web app development for transportation and service businesses.{% endblock %}">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.ironlane-freight.com{{ request.path }}">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="{{ company.name }}">
+    <meta property="og:url" content="https://www.ironlane-freight.com{{ request.path }}">
+    <meta property="og:title" content="{% block og_title %}{{ company.name }} | Freight, Dispatch &amp; Digital Operations{% endblock %}">
+    <meta property="og:description" content="Freight dispatch, fleet coordination and custom web solutions for modern logistics businesses.">
+
+    <link rel="icon" href="{% static 'images/favicon.svg' %}" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MovingCompany",
+      "name": "{{ company.name }}",
+      "url": "https://www.ironlane-freight.com/",
+      "telephone": "{{ company.phone }}",
+      "email": "{{ company.email }}",
+      "address": "{{ company.address }}"
+    }
+    </script>
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="bg-white text-steel-900 font-sans antialiased">
+
+<header id="site-header" class="fixed inset-x-0 top-0 z-50 transition-colors duration-300 {% block header_class %}bg-asphalt/95 backdrop-blur{% endblock %}">
+    <nav class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
+        <a href="{% url 'index' %}" class="flex items-center gap-2.5 text-white">
+            <img src="{% static 'images/favicon.svg' %}" alt="IronLane logo" class="h-9 w-9">
+            <span class="font-display text-xl font-semibold uppercase tracking-wider">Iron<span class="text-signal">Lane</span></span>
+        </a>
+
+        <div class="hidden items-center gap-8 text-sm font-medium text-steel-200 lg:flex">
+            <a href="{% url 'index' %}#services" class="hover:text-white">Services</a>
+            <a href="{% url 'index' %}#fleet" class="hover:text-white">Fleet</a>
+            <a href="{% url 'index' %}#coverage" class="hover:text-white">Coverage</a>
+            <a href="{% url 'careers' %}" class="hover:text-white {% if request.resolver_match.url_name == 'careers' %}text-white{% endif %}">Drive With Us</a>
+            <a href="tel:{{ company.phone }}" class="text-white">{{ company.phone }}</a>
+            <a href="{% url 'quote' %}" class="btn-primary">Get a Quote</a>
+        </div>
+
+        <button type="button" data-menu-toggle aria-expanded="false" aria-controls="mobile-menu"
+                class="rounded-lg p-2 text-white lg:hidden" aria-label="Open menu">
+            <svg class="h-7 w-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+    </nav>
+
+    <div id="mobile-menu" class="hidden border-t border-white/10 bg-asphalt px-5 pb-6 lg:hidden">
+        <div class="flex flex-col gap-1 pt-3 text-base font-medium text-steel-200">
+            <a href="{% url 'index' %}#services" class="rounded-lg px-3 py-3 hover:bg-white/5">Services</a>
+            <a href="{% url 'index' %}#fleet" class="rounded-lg px-3 py-3 hover:bg-white/5">Fleet</a>
+            <a href="{% url 'index' %}#coverage" class="rounded-lg px-3 py-3 hover:bg-white/5">Coverage</a>
+            <a href="{% url 'careers' %}" class="rounded-lg px-3 py-3 hover:bg-white/5">Drive With Us</a>
+            <a href="tel:{{ company.phone }}" class="rounded-lg px-3 py-3 text-white">{{ company.phone }}</a>
+            <a href="{% url 'quote' %}" class="btn-primary mt-2 justify-center">Get a Quote</a>
+        </div>
+    </div>
+</header>
+
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+<footer class="bg-asphalt text-steel-300">
+    <div class="mx-auto grid max-w-7xl gap-10 px-5 py-14 sm:grid-cols-2 lg:grid-cols-4 lg:px-8">
+        <div class="lg:col-span-2">
+            <p class="font-display text-2xl font-semibold uppercase tracking-wider text-white">Iron<span class="text-signal">Lane</span> Freight &amp; Digital</p>
+            <p class="mt-3 max-w-sm text-sm leading-relaxed">{{ company.tagline }} built for reliable freight movement, dispatch operations and efficient digital systems.</p>
+            <p class="mt-4 text-xs uppercase tracking-widest text-steel-400">{{ company.dot_number }} &middot; {{ company.mc_number }}</p>
+        </div>
+        <div>
+            <p class="text-sm font-semibold uppercase tracking-wider text-white">Company</p>
+            <ul class="mt-4 space-y-2 text-sm">
+                <li><a href="{% url 'index' %}#services" class="hover:text-white">Services</a></li>
+                <li><a href="{% url 'index' %}#fleet" class="hover:text-white">Our Fleet</a></li>
+                <li><a href="{% url 'careers' %}" class="hover:text-white">Driver Careers</a></li>
+                <li><a href="{% url 'quote' %}" class="hover:text-white">Request a Quote</a></li>
+            </ul>
+        </div>
+        <div>
+            <p class="text-sm font-semibold uppercase tracking-wider text-white">24/7 Dispatch</p>
+            <ul class="mt-4 space-y-2 text-sm">
+                <li><a href="tel:{{ company.phone }}" class="hover:text-white">{{ company.phone }}</a></li>
+                <li><a href="mailto:{{ company.email }}" class="hover:text-white">{{ company.email }}</a></li>
+                <li>{{ company.address }}</li>
+            </ul>
+        </div>
+    </div>
+    <div class="border-t border-white/10">
+        <p class="mx-auto max-w-7xl px-5 py-6 text-xs text-steel-400 lg:px-8">&copy; {% now "Y" %} {{ company.name }}. All rights reserved.</p>
+    </div>
+</footer>
+
+<script src="{% static 'js/main.js' %}" defer></script>
+</body>
+</html>

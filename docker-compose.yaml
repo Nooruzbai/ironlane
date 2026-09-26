@@ -1,0 +1,30 @@
+services:
+  backend:
+    image: ${DOCKER_USERNAME}/ironlane-backend:latest
+    env_file: .env
+    environment:
+      DATABASE_PATH: /app/data/db.sqlite3
+    volumes:
+      - static_volume:/app/staticfiles
+      - db_volume:/app/data
+    expose:
+      - "8000"
+    restart: always
+
+  nginx:
+    image: nginx:stable-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./${NGINX_CONF:-nginx.conf}:/etc/nginx/conf.d/default.conf:ro
+      - static_volume:/usr/share/nginx/html/static:ro
+      - /var/www/certbot:/var/www/certbot:ro
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+    depends_on:
+      - backend
+    restart: always
+
+volumes:
+  static_volume:
+  db_volume:

@@ -1,0 +1,14 @@
+{# Usage: include "partials/field.html" with name="email" label="Email" type="email" required=True #}
+<div class="{{ wrapper|default:'' }}">
+    <label for="id_{{ name }}" class="form-label">{{ label }}{% if required %} <span class="text-signal-dark">*</span>{% endif %}</label>
+    {% if type == "textarea" %}
+    <textarea id="id_{{ name }}" name="{{ name }}" rows="5" placeholder="{{ placeholder|default:'' }}"
+              class="form-input {% if error %}is-invalid{% endif %}">{{ value|default:'' }}</textarea>
+    {% else %}
+    <input id="id_{{ name }}" name="{{ name }}" type="{{ type|default:'text' }}" value="{{ value|default:'' }}"
+           placeholder="{{ placeholder|default:'' }}" {% if required %}required{% endif %}
+           {% if min %}min="{{ min }}"{% endif %}
+           class="form-input {% if error %}is-invalid{% endif %}">
+    {% endif %}
+    {% if error %}<p class="form-error">{{ error }}</p>{% endif %}
+</div>
