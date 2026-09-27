@@ -1,26 +1,27 @@
 {% extends "base.html" %}
+{% load i18n %}
 
-{% block title %}CDL Truck Driver Jobs | {{ company.name }}{% endblock %}
-{% block description %}Drive for IronLane Freight: late-model equipment, weekly home time, competitive pay per mile and full benefits for CDL Class A and B drivers.{% endblock %}
+{% block title %}{% blocktranslate trimmed with name=company.name %}CDL Truck Driver Jobs | {{ name }}{% endblocktranslate %}{% endblock %}
+{% block description %}{% translate "Drive for IronLane Freight: late-model equipment, weekly home time, competitive pay per mile and full benefits for CDL Class A and B drivers." %}{% endblock %}
 
 {% block content %}
 <section class="page-hero">
     <div class="mx-auto max-w-7xl px-5 lg:px-8">
-        <p class="eyebrow text-signal!">Now hiring CDL drivers</p>
-        <h1 class="mt-3 font-display text-4xl font-bold uppercase text-white sm:text-5xl">Drive with IronLane</h1>
-        <p class="mt-4 max-w-xl text-steel-300">Good equipment, honest dispatch and a paycheck you can count on.</p>
+        <p class="eyebrow text-signal!">{% translate "Now hiring CDL drivers" %}</p>
+        <h1 class="mt-3 font-display text-4xl font-bold uppercase text-white sm:text-5xl">{% translate "Drive with IronLane" %}</h1>
+        <p class="mt-4 max-w-xl text-steel-300">{% translate "Good equipment, honest dispatch and a paycheck you can count on." %}</p>
     </div>
 </section>
 
 <section class="py-16">
     <div class="mx-auto grid max-w-7xl gap-12 px-5 lg:grid-cols-5 lg:px-8">
         <aside class="lg:col-span-2">
-            <h2 class="text-2xl font-semibold">What you get</h2>
+            <h2 class="text-2xl font-semibold">{% translate "What you get" %}</h2>
             <ul class="mt-6 space-y-5">
-                <li class="flex gap-4"><span class="check">&#10003;</span><div><p class="font-semibold">Top pay per mile</p><p class="text-steel-600">Plus detention, layover and safety bonuses.</p></div></li>
-                <li class="flex gap-4"><span class="check">&#10003;</span><div><p class="font-semibold">Home time you can plan</p><p class="text-steel-600">Regional and dedicated lanes with weekly home time.</p></div></li>
-                <li class="flex gap-4"><span class="check">&#10003;</span><div><p class="font-semibold">Late-model trucks</p><p class="text-steel-600">Automatic transmissions, APUs and inverters.</p></div></li>
-                <li class="flex gap-4"><span class="check">&#10003;</span><div><p class="font-semibold">Full benefits</p><p class="text-steel-600">Medical, dental, vision and 401(k) with match.</p></div></li>
+                <li class="flex gap-4"><span class="check">&#10003;</span><div><p class="font-semibold">{% translate "Top pay per mile" %}</p><p class="text-steel-600">{% translate "Plus detention, layover and safety bonuses." %}</p></div></li>
+                <li class="flex gap-4"><span class="check">&#10003;</span><div><p class="font-semibold">{% translate "Home time you can plan" %}</p><p class="text-steel-600">{% translate "Regional and dedicated lanes with weekly home time." %}</p></div></li>
+                <li class="flex gap-4"><span class="check">&#10003;</span><div><p class="font-semibold">{% translate "Late-model trucks" %}</p><p class="text-steel-600">{% translate "Automatic transmissions, APUs and inverters." %}</p></div></li>
+                <li class="flex gap-4"><span class="check">&#10003;</span><div><p class="font-semibold">{% translate "Full benefits" %}</p><p class="text-steel-600">{% translate "Medical, dental, vision and 401(k) with match." %}</p></div></li>
             </ul>
         </aside>
 
@@ -29,27 +30,27 @@
             <form method="post" class="form-card" novalidate>
                 {% csrf_token %}
                 <input type="text" name="website" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
-                <h2 class="form-section">Quick application</h2>
+                <h2 class="form-section">{% translate "Quick application" %}</h2>
                 <div class="grid gap-6 sm:grid-cols-2">
-                    {% include "partials/field.html" with name="full_name" label="Full name" value=values.full_name error=errors.full_name required=True wrapper="sm:col-span-2" %}
-                    {% include "partials/field.html" with name="email" label="Email" type="email" value=values.email error=errors.email required=True %}
-                    {% include "partials/field.html" with name="phone" label="Phone" type="tel" value=values.phone error=errors.phone required=True %}
+                    {% include "partials/field.html" with name="full_name" label=_("Full name") value=values.full_name error=errors.full_name required=True wrapper="sm:col-span-2" %}
+                    {% include "partials/field.html" with name="email" label=_("Email") type="email" value=values.email error=errors.email required=True %}
+                    {% include "partials/field.html" with name="phone" label=_("Phone") type="tel" value=values.phone error=errors.phone required=True %}
                     <div>
-                        <label for="id_license_class" class="form-label">License <span class="text-signal-dark">*</span></label>
+                        <label for="id_license_class" class="form-label">{% translate "License" %} <span class="text-signal-dark">*</span></label>
                         <select id="id_license_class" name="license_class" class="form-input {% if errors.license_class %}is-invalid{% endif %}" required>
-                            <option value="">Select license</option>
+                            <option value="">{% translate "Select license" %}</option>
                             {% for key, label in license_classes %}
                             <option value="{{ key.value }}" {% if values.license_class == key.value %}selected{% endif %}>{{ label }}</option>
                             {% endfor %}
                         </select>
                         {% if errors.license_class %}<p class="form-error">{{ errors.license_class }}</p>{% endif %}
                     </div>
-                    {% include "partials/field.html" with name="years_experience" label="Years of experience" type="number" value=values.years_experience error=errors.years_experience required=True %}
+                    {% include "partials/field.html" with name="years_experience" label=_("Years of experience") type="number" value=values.years_experience error=errors.years_experience required=True %}
                 </div>
                 <div class="mt-6">
-                    {% include "partials/field.html" with name="message" label="Anything else we should know?" type="textarea" value=values.message error=errors.message %}
+                    {% include "partials/field.html" with name="message" label=_("Anything else we should know?") type="textarea" value=values.message error=errors.message %}
                 </div>
-                <button type="submit" class="btn-primary mt-8 w-full justify-center py-4 text-base sm:w-auto sm:px-10">Submit Application</button>
+                <button type="submit" class="btn-primary mt-8 w-full justify-center py-4 text-base sm:w-auto sm:px-10">{% translate "Submit Application" %}</button>
             </form>
         </div>
     </div>

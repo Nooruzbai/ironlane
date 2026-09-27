@@ -1,57 +1,91 @@
 (() => {
-    // Mobile menu
-    const toggle = document.querySelector("[data-menu-toggle]");
-    const menu = document.getElementById("mobile-menu");
-    toggle?.addEventListener("click", () => {
-        const open = menu.classList.toggle("hidden") === false;
-        toggle.setAttribute("aria-expanded", String(open));
-    });
-    menu?.querySelectorAll("a").forEach((link) =>
-        link.addEventListener("click", () => menu.classList.add("hidden"))
-    );
+  // CDN failed: show hidden content instead of leaving it invisible
+  if (!window.Vue) {
+    document.querySelectorAll(".reveal").forEach((el) => el.classList.add("active"));
+    document
+      .querySelectorAll("[v-count-up]")
+      .forEach((el) => (el.textContent = el.getAttribute("v-count-up")));
+    return;
+  }
+  const { createApp, ref, onMounted, onBeforeUnmount } = Vue;
 
-    // Solid header once the page scrolls past the transparent hero
-    const header = document.getElementById("site-header");
-    if (header?.classList.contains("bg-transparent")) {
-        const onScroll = () => {
-            const scrolled = window.scrollY > 40;
-            header.classList.toggle("bg-asphalt/95", scrolled);
-            header.classList.toggle("backdrop-blur", scrolled);
-            header.classList.toggle("shadow-lg", scrolled);
-        };
-        window.addEventListener("scroll", onScroll, { passive: true });
-        onScroll();
-    }
+  // Django owns {{ }}, so Vue templates use [[ ]].
+  const delimiters = ["[[", "]]"];
 
-    // Count-up animation for stats
-    const countUp = (el) => {
-        const target = Number(el.dataset.count);
-        const start = performance.now();
-        const duration = 1400;
-        const tick = (now) => {
-            const progress = Math.min((now - start) / duration, 1);
-            el.textContent = Math.round(target * (1 - Math.pow(1 - progress, 3)));
-            if (progress < 1) requestAnimationFrame(tick);
+  // Header: mobile menu + solid header once the page scrolls past the hero
+  const header = document.getElementById("site-header");
+  if (header) {
+    createApp({
+      delimiters,
+      setup() {
+        const menuOpen = ref(false);
+        const scrolled = ref(false);
+        const onScroll = () => (scrolled.value = window.scrollY > 40);
+        const closeMenuOnLink = (event) => {
+          if (event.target.closest("a")) menuOpen.value = false;
         };
-        requestAnimationFrame(tick);
+        onMounted(() => {
+          window.addEventListener("scroll", onScroll, { passive: true });
+          onScroll();
+        });
+        onBeforeUnmount(() => window.removeEventListener("scroll", onScroll));
+        return { menuOpen, scrolled, closeMenuOnLink };
+      },
+    }).mount(header);
+  }
+
+  // Page content: only mounted where the template opts in with data-vue
+  const main = document.querySelector("main[data-vue]");
+  if (!main) return;
+
+  const countUp = (el, target) => {
+    const start = performance.now();
+    const duration = 1400;
+    const tick = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      el.textContent = Math.round(target * (1 - Math.pow(1 - progress, 3)));
+      if (progress < 1) requestAnimationFrame(tick);
     };
+    requestAnimationFrame(tick);
+  };
 
-    // Scroll reveal
-    const targets = document.querySelectorAll(".reveal, [data-count]");
-    if (!("IntersectionObserver" in window)) {
-        targets.forEach((el) => el.classList.add("active"));
-        return;
-    }
-    const observer = new IntersectionObserver(
-        (entries) => {
-            entries.forEach((entry) => {
-                if (!entry.isIntersecting) return;
-                entry.target.classList.add("active");
-                if (entry.target.dataset.count) countUp(entry.target);
-                observer.unobserve(entry.target);
-            });
-        },
-        { threshold: 0.15 }
+  // Run once when an element scrolls into view (immediately without IntersectionObserver)
+  const hasObserver = "IntersectionObserver" in window;
+  const callbacks = new WeakMap();
+  const observer =
+    hasObserver &&
+    new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          observer.unobserve(entry.target);
+          callbacks.get(entry.target)?.();
+          callbacks.delete(entry.target);
+        });
+      },
+      { threshold: 0.15 },
     );
-    targets.forEach((el) => observer.observe(el));
+  const onVisible = (el, callback) => {
+    if (!hasObserver) return callback();
+    callbacks.set(el, callback);
+    observer.observe(el);
+  };
+  const stopWatching = (el) => {
+    if (!hasObserver) return;
+    observer.unobserve(el);
+    callbacks.delete(el);
+  };
+
+  createApp({ delimiters })
+    // <div v-reveal class="reveal">: fades in on scroll
+    .directive("reveal", {
+      mounted: (el) => onVisible(el, () => el.classList.add("active")),
+      beforeUnmount: stopWatching,
+    })
+    // <span v-count-up="98">0</span>: counts up on scroll
+    .directive("count-up", {
+      mounted: (el, { value }) => onVisible(el, () => countUp(el, Number(value))),
+      beforeUnmount: stopWatching,
+    })
+    .mount(main);
 })();

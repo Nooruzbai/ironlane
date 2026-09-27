@@ -1,108 +1,337 @@
-{% load static %}<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{{ company.name }} | Freight Dispatch &amp; Web Solutions{% endblock %}</title>
-    <meta name="description" content="{% block description %}{{ company.name }} provides freight dispatch, fleet operations and custom web app development for transportation and service businesses.{% endblock %}">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://www.ironlane-freight.com{{ request.path }}">
+{% load i18n static %}<!doctype html>
+<html lang="{{ LANGUAGE_CODE }}" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}{{ company.name }} | {% translate "Web Solutions, Dispatch & Freight" %}{% endblock %}</title>
+    <meta
+      name="description"
+      content="{% block description %}{% blocktranslate trimmed with name=company.name %}{{ name }} builds custom web platforms and business automation, and provides 24/7 truck dispatch and freight services for logistics and service businesses.{% endblocktranslate %}{% endblock %}"
+    />
+    <meta name="robots" content="index, follow" />
+    <link
+      rel="canonical"
+      href="https://www.ironlane-freight.com{{ request.path }}"
+    />
 
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="{{ company.name }}">
-    <meta property="og:url" content="https://www.ironlane-freight.com{{ request.path }}">
-    <meta property="og:title" content="{% block og_title %}{{ company.name }} | Freight, Dispatch &amp; Digital Operations{% endblock %}">
-    <meta property="og:description" content="Freight dispatch, fleet coordination and custom web solutions for modern logistics businesses.">
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="{{ company.name }}" />
+    <meta
+      property="og:url"
+      content="https://www.ironlane-freight.com{{ request.path }}"
+    />
+    <meta
+      property="og:title"
+      content="{% block og_title %}{{ company.name }} | {% translate "Digital Solutions, Dispatch & Freight" %}{% endblock %}"
+    />
+    <meta
+      property="og:description"
+      content="{% translate "Custom web platforms, business automation and 24/7 dispatch services for modern logistics businesses." %}"
+    />
 
-    <link rel="icon" href="{% static 'images/favicon.svg' %}" type="image/svg+xml">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+    <link
+      rel="icon"
+      href="{% static 'images/favicon.svg' %}"
+      type="image/svg+xml"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'css/output.css' %}" />
+    <style>
+      #site-header {
+        border-bottom: 1px solid transparent;
+      }
+      .nav-link,
+      .phone-link {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+      .nav-link:hover,
+      .phone-link:hover {
+        color: #ffffff;
+      }
+      #site-header.site-header--light {
+        background: rgba(255, 255, 255, 0.9);
+        border-color: rgba(15, 23, 42, 0.08);
+        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+      }
+      #site-header.site-header--light .brand-text,
+      #site-header.site-header--light .nav-link,
+      #site-header.site-header--light .phone-link {
+        color: #0f172a;
+      }
+      #site-header.site-header--light .brand-suffix {
+        color: #f59e0b;
+      }
+      #site-header.site-header--light .nav-link:hover,
+      #site-header.site-header--light .phone-link:hover {
+        color: #f59e0b;
+      }
+      #site-header.site-header--light .btn-primary {
+        box-shadow: 0 10px 24px rgba(245, 158, 11, 0.26);
+      }
+      #site-header.site-header--light #mobile-menu {
+        background: rgba(255, 255, 255, 0.96);
+      }
+      .mobile-menu-button {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        color: #ffffff;
+      }
+      .site-header--light .mobile-menu-button {
+        background: rgba(15, 23, 42, 0.04);
+        border-color: rgba(15, 23, 42, 0.12);
+        color: #0f172a;
+      }
+      /* Language toggle (EN / KY) */
+      .lang-switch {
+        display: inline-flex;
+        gap: 2px;
+        padding: 3px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 9999px;
+        background: rgba(255, 255, 255, 0.06);
+      }
+      .lang-btn {
+        min-width: 2.25rem;
+        padding: 0.3rem 0.6rem;
+        border-radius: 9999px;
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        cursor: pointer;
+        transition: background-color 0.2s ease, color 0.2s ease;
+      }
+      .lang-btn:hover {
+        color: #ffffff;
+      }
+      .lang-btn.is-active {
+        background: #f59e0b;
+        color: #0f172a;
+      }
+      .lang-switch--block {
+        display: flex;
+        border-radius: 0.75rem;
+      }
+      .lang-switch--block .lang-btn {
+        flex: 1;
+        padding: 0.6rem 0.75rem;
+        border-radius: 0.5rem;
+      }
+      .site-header--light .lang-switch {
+        border-color: rgba(15, 23, 42, 0.12);
+        background: rgba(15, 23, 42, 0.04);
+      }
+      .site-header--light .lang-btn {
+        color: #0f172a;
+      }
+      .site-header--light .lang-btn.is-active {
+        color: #0f172a;
+      }
+      @media (max-width: 767px) {
+        #site-header .brand-text {
+          font-size: 1.05rem;
+        }
+      }
+    </style>
 
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "MovingCompany",
-      "name": "{{ company.name }}",
-      "url": "https://www.ironlane-freight.com/",
-      "telephone": "{{ company.phone }}",
-      "email": "{{ company.email }}",
-      "address": "{{ company.address }}"
-    }
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "{{ company.name }}",
+        "url": "https://www.ironlane-freight.com/",
+        "telephone": "{{ company.phone }}",
+        "email": "{{ company.email }}",
+        "address": "{{ company.address }}"
+      }
     </script>
     {% block extra_head %}{% endblock %}
-</head>
-<body class="bg-white text-steel-900 font-sans antialiased">
-
-<header id="site-header" class="fixed inset-x-0 top-0 z-50 transition-colors duration-300 {% block header_class %}bg-asphalt/95 backdrop-blur{% endblock %}">
-    <nav class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
-        <a href="{% url 'index' %}" class="flex items-center gap-2.5 text-white">
-            <img src="{% static 'images/favicon.svg' %}" alt="IronLane logo" class="h-9 w-9">
-            <span class="font-display text-xl font-semibold uppercase tracking-wider">Iron<span class="text-signal">Lane</span></span>
+  </head>
+  <body class="bg-white text-steel-900 font-sans antialiased">
+    <header
+      id="site-header"
+      :class="{ 'site-header--light shadow-lg': scrolled }"
+      class="fixed inset-x-0 top-0 z-50 border-b border-transparent bg-asphalt/95 text-white backdrop-blur transition-all duration-300 {% block header_class %}{% endblock %}"
+    >
+      <nav
+        class="mx-auto flex max-w-7xl items-center justify-between gap-2 px-4 py-3 sm:px-5 lg:px-8"
+      >
+        <a
+          href="{% url 'index' %}"
+          class="brand-text flex min-w-0 items-center gap-2 py-1.5 text-white transition-colors duration-300"
+        >
+          <img
+            src="{% static 'images/favicon.svg' %}"
+            alt="{% translate 'IronLane logo' %}"
+            class="my-1 h-7.5 w-7.5 sm:h-8.5 sm:w-8.5"
+          />
+          <span
+            class="font-display text-sm font-semibold uppercase tracking-wider sm:text-base"
+            >IT-<span class="brand-suffix text-signal">Consulting</span></span
+          >
         </a>
 
-        <div class="hidden items-center gap-8 text-sm font-medium text-steel-200 lg:flex">
-            <a href="{% url 'index' %}#services" class="hover:text-white">Services</a>
-            <a href="{% url 'index' %}#fleet" class="hover:text-white">Fleet</a>
-            <a href="{% url 'index' %}#coverage" class="hover:text-white">Coverage</a>
-            <a href="{% url 'careers' %}" class="hover:text-white {% if request.resolver_match.url_name == 'careers' %}text-white{% endif %}">Drive With Us</a>
-            <a href="tel:{{ company.phone }}" class="text-white">{{ company.phone }}</a>
-            <a href="{% url 'quote' %}" class="btn-primary">Get a Quote</a>
+        <div class="hidden items-center gap-4 lg:flex lg:gap-6">
+          <a href="{% url 'index' %}#services" class="nav-link">{% translate "Services" %}</a>
+          <a href="{% url 'index' %}#fleet" class="nav-link">{% translate "Fleet" %}</a>
+          <a href="{% url 'index' %}#process" class="nav-link">{% translate "How We Work" %}</a>
+          <a
+            href="{% url 'careers' %}"
+            class="nav-link {% if request.resolver_match.url_name == 'careers' %}text-white{% endif %}"
+            >{% translate "Drive With Us" %}</a
+          >
+          <a href="tel:{{ company.phone }}" class="phone-link"
+            >{{ company.phone }}</a
+          >
+          {% include "partials/language_switch.html" %}
+          <a href="{% url 'index' %}#contact" class="btn-primary">{% translate "Start a Project" %}</a>
         </div>
 
-        <button type="button" data-menu-toggle aria-expanded="false" aria-controls="mobile-menu"
-                class="rounded-lg p-2 text-white lg:hidden" aria-label="Open menu">
-            <svg class="h-7 w-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <button
+          type="button"
+          @click="menuOpen = !menuOpen"
+          :aria-expanded="menuOpen"
+          aria-controls="mobile-menu"
+          class="mobile-menu-button rounded-xl p-2.5 transition-colors lg:hidden"
+          aria-label="{% translate 'Open menu' %}"
+        >
+          <svg
+            class="h-7 w-7"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16" />
+          </svg>
         </button>
-    </nav>
+      </nav>
 
-    <div id="mobile-menu" class="hidden border-t border-white/10 bg-asphalt px-5 pb-6 lg:hidden">
-        <div class="flex flex-col gap-1 pt-3 text-base font-medium text-steel-200">
-            <a href="{% url 'index' %}#services" class="rounded-lg px-3 py-3 hover:bg-white/5">Services</a>
-            <a href="{% url 'index' %}#fleet" class="rounded-lg px-3 py-3 hover:bg-white/5">Fleet</a>
-            <a href="{% url 'index' %}#coverage" class="rounded-lg px-3 py-3 hover:bg-white/5">Coverage</a>
-            <a href="{% url 'careers' %}" class="rounded-lg px-3 py-3 hover:bg-white/5">Drive With Us</a>
-            <a href="tel:{{ company.phone }}" class="rounded-lg px-3 py-3 text-white">{{ company.phone }}</a>
-            <a href="{% url 'quote' %}" class="btn-primary mt-2 justify-center">Get a Quote</a>
+      <div
+        id="mobile-menu"
+        v-show="menuOpen"
+        style="display: none"
+        @click="closeMenuOnLink"
+        class="border-t border-white/10 bg-asphalt px-4 pb-5 lg:hidden"
+      >
+        <div
+          class="flex flex-col gap-1 pt-3 text-base font-medium text-steel-200"
+        >
+          <a
+            href="{% url 'index' %}#services"
+            class="rounded-lg px-3 py-3 text-white/85 hover:bg-white/5 hover:text-white"
+            >{% translate "Services" %}</a
+          >
+          <a
+            href="{% url 'index' %}#fleet"
+            class="rounded-lg px-3 py-3 text-white/85 hover:bg-white/5 hover:text-white"
+            >{% translate "Fleet" %}</a
+          >
+          <a
+            href="{% url 'index' %}#process"
+            class="rounded-lg px-3 py-3 text-white/85 hover:bg-white/5 hover:text-white"
+            >{% translate "How We Work" %}</a
+          >
+          <a
+            href="{% url 'careers' %}"
+            class="rounded-lg px-3 py-3 text-white/85 hover:bg-white/5 hover:text-white"
+            >{% translate "Drive With Us" %}</a
+          >
+          <a
+            href="tel:{{ company.phone }}"
+            class="rounded-lg px-3 py-3 text-white"
+            >{{ company.phone }}</a
+          >
+          <a href="{% url 'index' %}#contact" class="btn-primary mt-2 justify-center"
+            >{% translate "Start a Project" %}</a
+          >
+          {% include "partials/language_switch.html" with extra_class="lang-switch--block mt-3" %}
         </div>
-    </div>
-</header>
+      </div>
+    </header>
 
-<main>
-    {% block content %}{% endblock %}
-</main>
+    <main {% block main_attrs %}{% endblock %}>{% block content %}{% endblock %}</main>
 
-<footer class="bg-asphalt text-steel-300">
-    <div class="mx-auto grid max-w-7xl gap-10 px-5 py-14 sm:grid-cols-2 lg:grid-cols-4 lg:px-8">
+    <footer class="bg-asphalt text-steel-300">
+      <div
+        class="mx-auto grid max-w-7xl gap-10 px-5 py-14 sm:grid-cols-2 lg:grid-cols-4 lg:px-8"
+      >
         <div class="lg:col-span-2">
-            <p class="font-display text-2xl font-semibold uppercase tracking-wider text-white">Iron<span class="text-signal">Lane</span> Freight &amp; Digital</p>
-            <p class="mt-3 max-w-sm text-sm leading-relaxed">{{ company.tagline }} built for reliable freight movement, dispatch operations and efficient digital systems.</p>
-            <p class="mt-4 text-xs uppercase tracking-widest text-steel-400">{{ company.dot_number }} &middot; {{ company.mc_number }}</p>
+          <p
+            class="font-display text-2xl font-semibold uppercase tracking-wider text-white"
+          >
+            IT-<span class="text-signal">Consulting</span> Freight &amp; Digital
+          </p>
+          <p class="mt-3 max-w-sm text-sm leading-relaxed">
+            {% blocktranslate trimmed with tagline=company.tagline %}{{ tagline }} for businesses that want to run smarter.{% endblocktranslate %}
+          </p>
         </div>
         <div>
-            <p class="text-sm font-semibold uppercase tracking-wider text-white">Company</p>
-            <ul class="mt-4 space-y-2 text-sm">
-                <li><a href="{% url 'index' %}#services" class="hover:text-white">Services</a></li>
-                <li><a href="{% url 'index' %}#fleet" class="hover:text-white">Our Fleet</a></li>
-                <li><a href="{% url 'careers' %}" class="hover:text-white">Driver Careers</a></li>
-                <li><a href="{% url 'quote' %}" class="hover:text-white">Request a Quote</a></li>
-            </ul>
+          <p class="text-sm font-semibold uppercase tracking-wider text-white">
+            {% translate "Company" %}
+          </p>
+          <ul class="mt-4 space-y-2 text-sm">
+            <li>
+              <a href="{% url 'index' %}#services" class="hover:text-white"
+                >{% translate "Services" %}</a
+              >
+            </li>
+            <li>
+              <a href="{% url 'index' %}#process" class="hover:text-white"
+                >{% translate "How We Work" %}</a
+              >
+            </li>
+            <li>
+              <a href="{% url 'index' %}#fleet" class="hover:text-white"
+                >{% translate "Our Fleet" %}</a
+              >
+            </li>
+            <li>
+              <a href="{% url 'careers' %}" class="hover:text-white"
+                >{% translate "Driver Careers" %}</a
+              >
+            </li>
+            <li>
+              <a href="{% url 'quote' %}" class="hover:text-white"
+                >{% translate "Request a Freight Quote" %}</a
+              >
+            </li>
+          </ul>
         </div>
         <div>
-            <p class="text-sm font-semibold uppercase tracking-wider text-white">24/7 Dispatch</p>
-            <ul class="mt-4 space-y-2 text-sm">
-                <li><a href="tel:{{ company.phone }}" class="hover:text-white">{{ company.phone }}</a></li>
-                <li><a href="mailto:{{ company.email }}" class="hover:text-white">{{ company.email }}</a></li>
-                <li>{{ company.address }}</li>
-            </ul>
+          <p class="text-sm font-semibold uppercase tracking-wider text-white">
+            {% translate "Contact" %}
+          </p>
+          <ul class="mt-4 space-y-2 text-sm">
+            <li>
+              <a href="tel:{{ company.phone }}" class="hover:text-white"
+                >{{ company.phone }}</a
+              >
+            </li>
+            <li class="select-all">{{ company.email }}</li>
+            <li>{{ company.address }}</li>
+          </ul>
         </div>
-    </div>
-    <div class="border-t border-white/10">
-        <p class="mx-auto max-w-7xl px-5 py-6 text-xs text-steel-400 lg:px-8">&copy; {% now "Y" %} {{ company.name }}. All rights reserved.</p>
-    </div>
-</footer>
+      </div>
+      <div class="border-t border-white/10">
+        <p class="mx-auto max-w-7xl px-5 py-6 text-xs text-steel-400 lg:px-8">
+          &copy; {% now "Y" %} {{ company.name }}. {% translate "All rights reserved." %}
+        </p>
+      </div>
+    </footer>
 
-<script src="{% static 'js/main.js' %}" defer></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.5.43/dist/vue.global.prod.js" defer></script>
+    <script src="{% static 'js/main.js' %}" defer></script>
+  </body>
 </html>

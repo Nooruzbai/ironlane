@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render
+from django.utils.translation import gettext as _
 from django.views.generic import TemplateView, View
 
 from main_app.models import DriverApplication, QuoteRequest
@@ -41,7 +42,7 @@ class QuoteView(View):
         if not data.website:
             notify_quote_request(QuoteRequest.from_schema(data))
         messages.success(
-            request, "Thanks! A dispatcher will get back to you within one business hour."
+            request, _("Thanks! A dispatcher will get back to you within one business hour.")
         )
         return redirect("quote")
 
@@ -71,6 +72,6 @@ class CareersView(View):
         if not data.website:
             notify_driver_application(DriverApplication.from_schema(data))
         messages.success(
-            request, "Application received! Our recruiting team will call you shortly."
+            request, _("Application received! Our recruiting team will call you shortly.")
         )
         return redirect("careers")

@@ -4,6 +4,7 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("i18n/", include("django.conf.urls.i18n")),
     path("", include("main_app.urls")),
     path(
         "sitemap.xml",

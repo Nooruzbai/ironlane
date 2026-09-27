@@ -1,3 +1,4 @@
+{% load i18n %}
 {% if messages %}
 {% for message in messages %}
 <div class="mb-8 flex items-start gap-3 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-emerald-800" role="status">
@@ -7,6 +8,6 @@
 {% endif %}
 {% if errors %}
 <div class="mb-8 rounded-xl border border-red-200 bg-red-50 p-4 text-red-800" role="alert">
-    {% if errors.form %}{{ errors.form }}{% else %}Please fix the highlighted fields below.{% endif %}
+    {% if errors.form %}{{ errors.form }}{% else %}{% translate "Please fix the highlighted fields below." %}{% endif %}
 </div>
 {% endif %}

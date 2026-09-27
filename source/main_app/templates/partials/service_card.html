@@ -1,8 +1,17 @@
-<a href="{% url 'quote' %}?service={{ slug }}" class="reveal service-card group" data-delay="{{ delay }}">
+{% load i18n %}
+{# Usage: include with title, text, delay, icon (code|automation|dispatch|fleet|truck|clock), and either slug (freight quote) or href + cta #}
+<a href="{% if href %}{{ href }}{% else %}{% url 'quote' %}?service={{ slug }}{% endif %}" v-reveal class="reveal service-card group" data-delay="{{ delay }}">
     <span class="service-icon">
-        <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7h11v9H3zM14 10h4l3 3v3h-7zM7 19a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM17 19a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/></svg>
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
+            {% if icon == "code" %}<path stroke-linecap="round" stroke-linejoin="round" d="M3 5h18v14H3zM3 9h18M9 13l-2 2 2 2M15 13l2 2-2 2"/>
+            {% elif icon == "automation" %}<path stroke-linecap="round" stroke-linejoin="round" d="M12 3v3M12 18v3M4.2 7.5l2.6 1.5M17.2 15l2.6 1.5M4.2 16.5l2.6-1.5M17.2 9l2.6-1.5M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+            {% elif icon == "dispatch" %}<path stroke-linecap="round" stroke-linejoin="round" d="M4 13v-1a8 8 0 0 1 16 0v1M4 13h3v6H5a1 1 0 0 1-1-1zM20 13h-3v6h2a1 1 0 0 0 1-1zM17 19c0 1.1-2 2-5 2"/>
+            {% elif icon == "fleet" %}<path stroke-linecap="round" stroke-linejoin="round" d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21zM12 12a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
+            {% elif icon == "clock" %}<path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 7v5l3 2"/>
+            {% else %}<path stroke-linecap="round" stroke-linejoin="round" d="M3 7h11v9H3zM14 10h4l3 3v3h-7zM7 19a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM17 19a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>{% endif %}
+        </svg>
     </span>
     <h3 class="mt-6 text-xl font-semibold">{{ title }}</h3>
     <p class="mt-3 leading-relaxed text-steel-600">{{ text }}</p>
-    <span class="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-signal-dark">Get a rate <span class="transition-transform group-hover:translate-x-1">&rarr;</span></span>
+    <span class="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-signal-dark">{% if cta %}{{ cta }}{% else %}{% translate "Get a rate" %}{% endif %} <span class="transition-transform group-hover:translate-x-1">&rarr;</span></span>
 </a>

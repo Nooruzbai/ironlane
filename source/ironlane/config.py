@@ -14,7 +14,7 @@ from pydantic_settings import BaseSettings, NoDecode, SettingsConfigDict
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 
-DEV_SECRET_KEY = "django-insecure-dev-only-change-me"
+DEV_SECRET_KEY = "2oBN1BXEbeVjawe+yRTc9rvz2dn8w1a8DJ8Rs7sJdtc="
 
 
 class AppSettings(BaseSettings):
@@ -46,7 +46,7 @@ class AppSettings(BaseSettings):
     email_password: SecretStr = SecretStr("")
     default_from_email: EmailStr = "no-reply@ironlane-freight.com"
     # Where quote requests and driver applications are delivered
-    inbox_email: EmailStr = "dispatch@ironlane-freight.com"
+    inbox_email: EmailStr = "azat.usubakunov@gmail.com"
 
     @field_validator("allowed_hosts", mode="before")
     @classmethod

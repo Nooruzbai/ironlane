@@ -1,0 +1,569 @@
+# Kyrgyz translations for the IronLane Freight website.
+msgid ""
+msgstr ""
+"Project-Id-Version: ironlane-freight\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-26 04:38+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Kyrgyz\n"
+"Language: ky\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Digital solutions, dispatch services and freight operations"
+msgstr "Санариптик чечимдер, диспетчердик кызматтар жана жүк ташуу"
+
+msgid "Full Truckload (FTL)"
+msgstr "Толук жүк (FTL)"
+
+msgid "Less Than Truckload (LTL)"
+msgstr "Толук эмес жүк (LTL)"
+
+msgid "Refrigerated (Reefer)"
+msgstr "Муздаткыч (Reefer)"
+
+msgid "Flatbed / Oversized"
+msgstr "Ачык платформа / Чоң габариттүү"
+
+msgid "Dedicated Fleet"
+msgstr "Атайын бөлүнгөн автопарк"
+
+msgid "Other"
+msgstr "Башка"
+
+msgid "CDL Class A"
+msgstr "CDL, A классы"
+
+msgid "CDL Class B"
+msgstr "CDL, B классы"
+
+msgid "Pickup date cannot be in the past"
+msgstr "Жүктү алуу күнү өтүп кеткен күн боло албайт"
+
+msgid "Origin and destination must be different"
+msgstr "Жөнөтүү жана жеткирүү пункттары ар башка болушу керек"
+
+msgid "This field is required"
+msgstr "Бул талааны толтуруу милдеттүү"
+
+msgid "This value is too short"
+msgstr "Бул маани өтө кыска"
+
+msgid "This value is too long"
+msgstr "Бул маани өтө узун"
+
+msgid "Please enter a valid phone number"
+msgstr "Туура телефон номерин жазыңыз"
+
+msgid "Please choose one of the options"
+msgstr "Варианттардын бирин тандаңыз"
+
+msgid "Please enter a whole number"
+msgstr "Бүтүн сан жазыңыз"
+
+msgid "Please enter a valid date"
+msgstr "Туура күндү жазыңыз"
+
+msgid "Please enter a valid email address"
+msgstr "Туура электрондук почта дарегин жазыңыз"
+
+msgid "Web Solutions, Dispatch & Freight"
+msgstr "Веб-чечимдер, диспетчерлик жана жүк ташуу"
+
+#, python-format
+msgid ""
+"%(name)s builds custom web platforms and business automation, and provides "
+"24/7 truck dispatch and freight services for logistics and service "
+"businesses."
+msgstr ""
+"%(name)s логистика жана тейлөө бизнеси үчүн атайын веб-платформаларды түзүп,"
+" бизнести автоматташтырат, ошондой эле 24/7 диспетчердик жана жүк ташуу "
+"кызматтарын көрсөтөт."
+
+msgid "Digital Solutions, Dispatch & Freight"
+msgstr "Санариптик чечимдер, диспетчерлик жана жүк ташуу"
+
+msgid ""
+"Custom web platforms, business automation and 24/7 dispatch services for "
+"modern logistics businesses."
+msgstr ""
+"Заманбап логистикалык бизнес үчүн атайын веб-платформалар, бизнести "
+"автоматташтыруу жана 24/7 диспетчердик кызматтар."
+
+msgid "IronLane logo"
+msgstr "IronLane логотиби"
+
+msgid "Services"
+msgstr "Кызматтар"
+
+msgid "Fleet"
+msgstr "Автопарк"
+
+msgid "How We Work"
+msgstr "Кантип иштейбиз"
+
+msgid "Drive With Us"
+msgstr "Айдоочуларга"
+
+msgid "Start a Project"
+msgstr "Долбоорду баштоо"
+
+msgid "Open menu"
+msgstr "Менюну ачуу"
+
+#, python-format
+msgid "%(tagline)s for businesses that want to run smarter."
+msgstr "%(tagline)s — акылдуураак иштөөнү каалаган бизнес үчүн."
+
+msgid "Company"
+msgstr "Компания"
+
+msgid "Our Fleet"
+msgstr "Биздин автопарк"
+
+msgid "Driver Careers"
+msgstr "Айдоочу болуп иштөө"
+
+msgid "Request a Freight Quote"
+msgstr "Жүк ташуунун баасын суроо"
+
+msgid "Contact"
+msgstr "Байланыш"
+
+msgid "All rights reserved."
+msgstr "Бардык укуктар корголгон."
+
+#, python-format
+msgid "CDL Truck Driver Jobs | %(name)s"
+msgstr "CDL айдоочулары үчүн жумуш | %(name)s"
+
+msgid ""
+"Drive for IronLane Freight: late-model equipment, weekly home time, "
+"competitive pay per mile and full benefits for CDL Class A and B drivers."
+msgstr ""
+"IronLane Freight компаниясында айдоочу болуп иштеңиз: жаңы техника, жума "
+"сайын үйгө кайтуу, ар бир миля үчүн жогорку төлөм жана CDL A, B класстагы "
+"айдоочулар үчүн толук социалдык пакет."
+
+msgid "Now hiring CDL drivers"
+msgstr "CDL айдоочуларын жумушка алабыз"
+
+msgid "Drive with IronLane"
+msgstr "IronLane менен жолго чыгыңыз"
+
+msgid "Good equipment, honest dispatch and a paycheck you can count on."
+msgstr "Сапаттуу техника, чынчыл диспетчерлик жана ишенимдүү айлык."
+
+msgid "What you get"
+msgstr "Сиз эмне аласыз"
+
+msgid "Top pay per mile"
+msgstr "Ар бир миля үчүн жогорку төлөм"
+
+msgid "Plus detention, layover and safety bonuses."
+msgstr "Кошумча күтүү, токтоп туруу жана коопсуздук үчүн бонустар."
+
+msgid "Home time you can plan"
+msgstr "Үйдөгү убакытты алдын ала пландаңыз"
+
+msgid "Regional and dedicated lanes with weekly home time."
+msgstr "Жума сайын үйгө кайтуу менен аймактык жана туруктуу каттамдар."
+
+msgid "Late-model trucks"
+msgstr "Жаңы жүк ташуучу унаалар"
+
+msgid "Automatic transmissions, APUs and inverters."
+msgstr "Автоматтык берүү кутусу, APU жана инверторлор."
+
+msgid "Full benefits"
+msgstr "Толук социалдык пакет"
+
+msgid "Medical, dental, vision and 401(k) with match."
+msgstr ""
+"Медициналык, тиш жана көз камсыздандыруусу, ошондой эле 401(k) пенсиялык "
+"программасы."
+
+msgid "Quick application"
+msgstr "Тез арыз"
+
+msgid "Full name"
+msgstr "Аты-жөнү"
+
+msgid "Email"
+msgstr "Электрондук почта"
+
+msgid "Phone"
+msgstr "Телефон"
+
+msgid "License"
+msgstr "Күбөлүк"
+
+msgid "Select license"
+msgstr "Күбөлүктү тандаңыз"
+
+msgid "Years of experience"
+msgstr "Иш тажрыйбасы (жыл)"
+
+msgid "Anything else we should know?"
+msgstr "Дагы эмнени билишибиз керек?"
+
+msgid "Submit Application"
+msgstr "Арызды жөнөтүү"
+
+msgid "Digital solutions · dispatch services · freight operations"
+msgstr "Санариптик чечимдер · диспетчердик кызматтар · жүк ташуу"
+
+msgid ""
+"Software and dispatch that move <span class=\"text-signal\">logistics "
+"businesses forward.</span>"
+msgstr ""
+"<span class=\"text-signal\">Логистикалык бизнести</span> алга жылдырган "
+"программалар жана диспетчерлик."
+
+msgid ""
+"IronLane builds custom web platforms, dashboards and automation for "
+"logistics and service businesses, backed by a 24/7 dispatch team and our own"
+" freight operations."
+msgstr ""
+"IronLane логистика жана тейлөө бизнеси үчүн атайын веб-платформаларды, "
+"дашборддорду жана автоматташтыруу системаларын түзөт. Бизди 24/7 иштеген "
+"диспетчердик команда жана өзүбүздүн жүк ташуу тажрыйбабыз колдойт."
+
+msgid "Explore Services"
+msgstr "Кызматтарды көрүү"
+
+msgid "Dispatch support"
+msgstr "Диспетчердик колдоо"
+
+msgid "On-time delivery"
+msgstr "Өз убагында жеткирүү"
+
+msgid "States covered"
+msgstr "Штатта иштейбиз"
+
+msgid "Power units"
+msgstr "Тягачтар"
+
+msgid "What we do"
+msgstr "Биз эмне кылабыз"
+
+msgid "Digital systems first, backed by real dispatch and freight experience."
+msgstr ""
+"Биринчи орунда санариптик системалар, алардын артында чыныгы диспетчердик "
+"жана жүк ташуу тажрыйбасы."
+
+msgid "Discuss your project"
+msgstr "Долбооруңузду талкуулоо"
+
+msgid "Web App Development"
+msgstr "Веб-тиркемелерди иштеп чыгуу"
+
+msgid ""
+"Custom web platforms, customer portals and dashboards designed around the "
+"way your business actually works."
+msgstr ""
+"Бизнесиңиздин чыныгы иштөө тартибине ылайыкталган атайын веб-платформалар, "
+"кардар порталдары жана дашборддор."
+
+msgid "Business Automation"
+msgstr "Бизнести автоматташтыруу"
+
+msgid ""
+"Quoting, scheduling, lead capture and internal workflows automated, so your "
+"team spends less time on manual work."
+msgstr ""
+"Баа эсептөө, график түзүү, өтүнмөлөрдү чогултуу жана ички иш процесстери "
+"автоматташтырылат, ошентип командаңыз кол эмгегине азыраак убакыт коротот."
+
+msgid "Truck Dispatch Services"
+msgstr "Жүк унааларын диспетчерлөө"
+
+msgid ""
+"24/7 dispatch support for carriers and shippers who need faster load "
+"planning, tracking and communication."
+msgstr ""
+"Жүктү тезирээк пландоо, көзөмөлдөө жана байланыш керек болгон ташуучулар "
+"менен жүк жөнөтүүчүлөр үчүн 24/7 диспетчердик колдоо."
+
+msgid "Fleet Coordination"
+msgstr "Автопаркты координациялоо"
+
+msgid ""
+"Live scheduling, lane management and proactive communication for fleets that"
+" need smoother execution."
+msgstr ""
+"Ишти так аткарууну каалаган автопарктар үчүн реалдуу убакыттагы график, "
+"каттамдарды башкаруу жана алдын ала байланыш."
+
+msgid "Full Truckload"
+msgstr "Толук жүк ташуу"
+
+msgid ""
+"Dedicated 53' dry vans moving direct from dock to dock with consistent, on-"
+"time reliability."
+msgstr ""
+"Атайын бөлүнгөн 53 футтук жабык фургондор жүктү складдан складга түз, "
+"туруктуу жана өз убагында жеткирет."
+
+msgid "Expedited & Team"
+msgstr "Шашылыш жана эки айдоочу менен"
+
+msgid ""
+"Time-sensitive freight support with responsive communication and a dispatch "
+"team that stays on top of the plan."
+msgstr ""
+"Убакыт маанилүү болгон жүктөр үчүн тез байланыш жана пландын ар бир кадамын "
+"көзөмөлдөгөн диспетчердик команда."
+
+msgid "Who we are"
+msgstr "Биз кимбиз"
+
+msgid "A technology company with real logistics experience."
+msgstr "Чыныгы логистикалык тажрыйбасы бар технология компаниясы."
+
+msgid ""
+"IronLane builds the software logistics and service businesses need to run "
+"smarter, from quoting and scheduling to customer portals and internal "
+"workflows. Our dispatch and freight teams use these tools every day, so we "
+"know what works on the road, not just on a screen."
+msgstr ""
+"IronLane логистика жана тейлөө бизнесине акылдуураак иштөө үчүн керектүү "
+"программаларды түзөт: баа эсептөө жана график түзүүдөн баштап кардар "
+"порталдарына жана ички иш процесстерине чейин. Биздин диспетчердик жана жүк "
+"ташуу командаларыбыз бул куралдарды күн сайын колдонушат, ошондуктан экранда"
+" гана эмес, жолдо да эмне иштей турганын билебиз."
+
+msgid "Digital"
+msgstr "Санариптик"
+
+msgid ""
+"Custom web apps, automation and internal tools that help businesses operate "
+"with less friction."
+msgstr ""
+"Бизнеске тоскоолдуксуз иштөөгө жардам берген атайын веб-тиркемелер, "
+"автоматташтыруу жана ички куралдар."
+
+msgid "Dispatch"
+msgstr "Диспетчерлик"
+
+msgid ""
+"Live communication, driver coordination and load management when timing "
+"matters."
+msgstr ""
+"Убакыт маанилүү болгондо: түз байланыш, айдоочуларды координациялоо жана "
+"жүктү башкаруу."
+
+msgid "Freight"
+msgstr "Жүк ташуу"
+
+msgid ""
+"Capacity, scheduling and reliable transport for shippers across the lower "
+"48."
+msgstr ""
+"АКШнын 48 континенттик штатындагы жүк жөнөтүүчүлөр үчүн унаа, график жана "
+"ишенимдүү ташуу."
+
+msgid "How we work"
+msgstr "Кантип иштейбиз"
+
+msgid "From first call to launch in four steps"
+msgstr "Биринчи чалуудан ишке киргизүүгө чейин төрт кадам"
+
+msgid ""
+"Every project is built with your team, tested on real operations and "
+"supported after launch."
+msgstr ""
+"Ар бир долбоор сиздин команда менен бирге түзүлүп, чыныгы иште сыналат жана "
+"ишке киргизилгенден кийин да колдоого алынат."
+
+msgid "Discovery call"
+msgstr "Таанышуу чалуусу"
+
+msgid ""
+"Tell us how your business runs today and where time or money is being lost."
+msgstr ""
+"Бизнесиңиз азыр кандай иштеп жатканын жана кайсы жерде убакыт же акча "
+"жоголуп жатканын айтып бериңиз."
+
+msgid "Plan & design"
+msgstr "Пландоо жана дизайн"
+
+msgid "We map your workflow and agree on a clear scope, timeline and price."
+msgstr ""
+"Иш процессиңизди талдап, иштин көлөмүн, мөөнөтүн жана баасын так "
+"макулдашабыз."
+
+msgid "Build & integrate"
+msgstr "Түзүү жана интеграциялоо"
+
+msgid ""
+"We build in short stages and connect the tools you already use, with regular"
+" demos."
+msgstr ""
+"Кыска этаптар менен иштеп, колдонуп жаткан куралдарыңызды туташтырабыз жана "
+"жыйынтыкты үзгүлтүксүз көрсөтүп турабыз."
+
+msgid "Launch & support"
+msgstr "Ишке киргизүү жана колдоо"
+
+msgid ""
+"We launch, train your team and stay on hand to improve the system as you "
+"grow."
+msgstr ""
+"Системаны ишке киргизип, командаңызды үйрөтөбүз жана бизнесиңиз өскөн сайын "
+"аны жакшыртууга дайыма даярбыз."
+
+msgid "Why IronLane"
+msgstr "Эмне үчүн IronLane"
+
+msgid "We build the systems and run the operations behind them."
+msgstr ""
+"Биз системаларды түзөбүз жана алардын артындагы ишти өзүбүз жүргүзөбүз."
+
+msgid ""
+"Most software agencies have never dispatched a load. We do it every day, "
+"which is why our tools solve real operational problems instead of adding "
+"more screens to check."
+msgstr ""
+"Көпчүлүк программалык агенттиктер бир да жүктү диспетчерлеген эмес. Биз муну"
+" күн сайын кылабыз, ошондуктан биздин куралдар текшере турган кошумча "
+"экрандарды көбөйтпөй, чыныгы иш көйгөйлөрүн чечет."
+
+msgid "Built around your workflow"
+msgstr "Сиздин иш процессиңизге ылайыкталган"
+
+msgid "Custom platforms designed with your team, not generic templates."
+msgstr ""
+"Даяр шаблондор эмес, сиздин команда менен бирге иштелип чыккан атайын "
+"платформалар."
+
+msgid "24/7 dispatch team"
+msgstr "24/7 диспетчердик команда"
+
+msgid "Live support for carriers and shippers, day and night."
+msgstr "Ташуучулар жана жүк жөнөтүүчүлөр үчүн күнү-түнү түз колдоо."
+
+msgid "Real-time GPS tracking"
+msgstr "Реалдуу убакытта GPS көзөмөлү"
+
+msgid "ELD-connected trucks with live location and ETA updates on every load."
+msgstr ""
+"ELD менен туташкан унаалар ар бир жүк боюнча жайгашкан жерди жана болжолдуу "
+"жетүү убактысын көрсөтүп турат."
+
+msgid "One point of contact"
+msgstr "Бир байланыш адамы"
+
+msgid "A single person who knows your project, your lanes and your docks."
+msgstr "Долбооруңузду, каттамдарыңызды жана складдарыңызды билген бир адам."
+
+msgid ""
+"Freight coverage across the lower 48, with regional hubs in Texas, Georgia, "
+"Illinois and California."
+msgstr ""
+"Техас, Джорджия, Иллинойс жана Калифорниядагы аймактык борборлор аркылуу "
+"АКШнын 48 континенттик штатында жүк ташуу."
+
+msgid "Dry vans"
+msgstr "Жабык фургондор"
+
+msgid "Reefer trailers"
+msgstr "Муздаткыч чиркегичтер"
+
+msgid "Flatbeds & step decks"
+msgstr "Ачык жана тепкичтүү платформалар"
+
+msgid "Live scheduling"
+msgstr "Реалдуу убакыттагы график"
+
+msgid "Ready to modernize your operations?"
+msgstr "Ишиңизди заманбап кылууга даярсызбы?"
+
+#, python-format
+msgid ""
+"Tell us what you need: a new platform, dispatch support or freight capacity."
+" Email <span class=\"select-all font-semibold text-signal\">%(email)s</span>"
+" or call <a href=\"tel:%(phone)s\" class=\"font-semibold text-"
+"signal\">%(phone)s</a>."
+msgstr ""
+"Сизге эмне керек экенин айтыңыз: жаңы платформа, диспетчердик колдоо же жүк "
+"ташуу. <span class=\"select-all font-semibold text-signal\">%(email)s</span>"
+" дарегине жазыңыз же <a href=\"tel:%(phone)s\" class=\"font-semibold text-"
+"signal\">%(phone)s</a> номерине чалыңыз."
+
+msgid "Get a Freight Quote"
+msgstr "Жүк ташуунун баасын билүү"
+
+msgid "Language"
+msgstr "Тил"
+
+msgid "Please fix the highlighted fields below."
+msgstr "Төмөндө белгиленген талааларды оңдоңуз."
+
+msgid "Get a rate"
+msgstr "Баасын билүү"
+
+#, python-format
+msgid "Request a Freight Quote | %(name)s"
+msgstr "Жүк ташуунун баасын суроо | %(name)s"
+
+msgid ""
+"Get a fast trucking quote for full truckload, LTL, refrigerated, flatbed or "
+"dedicated freight. Rates back within one business hour."
+msgstr ""
+"Толук жүк, LTL, муздаткыч, ачык платформа же атайын бөлүнгөн унаа менен жүк "
+"ташуунун баасын тез билиңиз. Баасын бир жумуш саатынын ичинде жиберебиз."
+
+msgid "Free quote"
+msgstr "Акысыз баалоо"
+
+msgid "Tell us about your load"
+msgstr "Жүгүңүз жөнүндө айтып бериңиз"
+
+#, python-format
+msgid ""
+"Rates back within one business hour. Need it faster? Call dispatch at <a "
+"href=\"tel:%(phone)s\" class=\"font-semibold text-white\">%(phone)s</a>."
+msgstr ""
+"Баасын бир жумуш саатынын ичинде жиберебиз. Тезирээк керекпи? Диспетчерге "
+"чалыңыз: <a href=\"tel:%(phone)s\" class=\"font-semibold text-"
+"white\">%(phone)s</a>."
+
+msgid "Shipment"
+msgstr "Жүк"
+
+msgid "Origin (city, state)"
+msgstr "Жөнөтүү пункту (шаар, штат)"
+
+msgid "Destination (city, state)"
+msgstr "Жеткирүү пункту (шаар, штат)"
+
+msgid "Service"
+msgstr "Кызмат"
+
+msgid "Select a service"
+msgstr "Кызматты тандаңыз"
+
+msgid "Weight (kg)"
+msgstr "Салмагы (кг)"
+
+msgid "Pickup date"
+msgstr "Жүктү алуу күнү"
+
+msgid "Additional details"
+msgstr "Кошумча маалымат"
+
+msgid "Commodity, dimensions, temperature, accessorials..."
+msgstr "Жүктүн түрү, өлчөмдөрү, температурасы, кошумча кызматтар..."
+
+msgid "Request Quote"
+msgstr "Баасын суроо"
+
+msgid "Thanks! A dispatcher will get back to you within one business hour."
+msgstr "Рахмат! Диспетчер бир жумуш саатынын ичинде сиз менен байланышат."
+
+msgid "Application received! Our recruiting team will call you shortly."
+msgstr "Арызыңыз кабыл алынды! Кадрлар бөлүмү жакын арада сизге чалат."

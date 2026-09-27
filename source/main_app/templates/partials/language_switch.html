@@ -1,0 +1,8 @@
+{% load i18n %}
+{# EN / KY toggle. Posts to Django's set_language view, which stores the choice in a cookie. #}
+<form action="{% url 'set_language' %}" method="post" class="lang-switch {{ extra_class|default:'' }}" aria-label="{% translate 'Language' %}">
+    {% csrf_token %}
+    <input name="next" type="hidden" value="{{ request.get_full_path }}">
+    <button type="submit" name="language" value="en" lang="en" aria-label="English" aria-pressed="{% if LANGUAGE_CODE == 'en' %}true{% else %}false{% endif %}" class="lang-btn {% if LANGUAGE_CODE == 'en' %}is-active{% endif %}">EN</button>
+    <button type="submit" name="language" value="ky" lang="ky" aria-label="Кыргызча" aria-pressed="{% if LANGUAGE_CODE == 'ky' %}true{% else %}false{% endif %}" class="lang-btn {% if LANGUAGE_CODE == 'ky' %}is-active{% endif %}">KY</button>
+</form>

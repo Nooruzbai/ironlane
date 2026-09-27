@@ -1,13 +1,12 @@
 from django.conf import settings
+from django.utils.translation import gettext_lazy as _
 
 COMPANY = {
-    "name": "IronLane Freight & Digital",
-    "tagline": "Freight dispatch, fleet operations, and custom web solutions",
-    "phone": "+1 (555) 014-2200",
+    "name": "IT-Consulting Freight & Digital",
+    "tagline": _("Digital solutions, dispatch services and freight operations"),
+    "phone": "+996 (550) 65 51 71",
     "email": settings.INBOX_EMAIL,
-    "address": "2400 Industrial Parkway, Dallas, TX 75207",
-    "dot_number": "USDOT 0000000",
-    "mc_number": "MC 000000",
+    "address": "Kyrgyzstan, Bishkek, 720000, 72, 60 Kalyk Akiev str.",
 }
 
 
