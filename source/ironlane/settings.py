@@ -11,6 +11,7 @@ from ironlane.config import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
 SECRET_KEY = config.secret_key.get_secret_value()
 DEBUG = config.debug
 ALLOWED_HOSTS = ["*"] if DEBUG else config.allowed_hosts

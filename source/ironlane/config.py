@@ -54,11 +54,12 @@ class AppSettings(BaseSettings):
         if isinstance(value, str):
             return [part.strip() for part in value.split(",") if part.strip()]
         return value
-
+    
     @model_validator(mode="after")
     def _require_real_secret_in_production(self) -> "AppSettings":
-        if not self.debug and self.secret_key.get_secret_value() == DEV_SECRET_KEY:
-            raise ValueError("SECRET_KEY must be set when DEBUG is False")
+        val = self.secret_key.get_secret_value().strip('\'"')
+        if not self.debug and (not val or val == DEV_SECRET_KEY):
+            raise ValueError("SECRET_KEY must be explicitly set to a production value when DEBUG is False")
         return self
 
 
