@@ -59,7 +59,9 @@ class AppSettings(BaseSettings):
     def _require_real_secret_in_production(self) -> "AppSettings":
         val = self.secret_key.get_secret_value().strip('\'"')
         if not self.debug and (not val or val == DEV_SECRET_KEY):
-            raise ValueError("SECRET_KEY must be explicitly set to a production value when DEBUG is False")
+            raise ValueError(
+                "SECRET_KEY must be explicitly set to a production value when DEBUG is False"
+            )
         return self
 
 
