@@ -70,17 +70,20 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
+          envs: SECRET_KEY, DOCKER_USERNAME, EMAIL_HOST_USER, EMAIL_PASSWORD, ENABLE_HTTPS
           script: |
             cd ~/ironlane-freight
 
-            echo "DEBUG=False" > .env
-            echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env
-            echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" >> .env
-            echo "EMAIL_HOST_USER=${{ secrets.EMAIL_HOST_USER }}" >> .env
-            echo "EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD }}" >> .env
-            echo "ALLOWED_HOSTS=${{ vars.ALLOWED_HOSTS || 'ironlane-freight.com,www.ironlane-freight.com,localhost,127.0.0.1' }}" >> .env
-            echo "ENABLE_HTTPS=${{ vars.ENABLE_HTTPS || 'True' }}" >> .env
-            echo "NGINX_CONF=${{ vars.NGINX_CONF || 'nginx.conf' }}" >> .env
+            cat << 'EOF' > .env
+            DEBUG=False
+            SECRET_KEY=${{ secrets.SECRET_KEY }}
+            DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}
+            EMAIL_HOST_USER=${{ secrets.EMAIL_HOST_USER }}
+            EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD }}
+            ALLOWED_HOSTS=${{ vars.ALLOWED_HOSTS || 'it-cons.com,www.it-cons.com,localhost,127.0.0.1' }}
+            ENABLE_HTTPS=${{ secrets.ENABLE_HTTPS || 'True' }}
+            NGINX_CONF=${{ vars.NGINX_CONF || 'nginx.conf' }}
+            EOF
 
             sudo mkdir -p /var/www/certbot
 
