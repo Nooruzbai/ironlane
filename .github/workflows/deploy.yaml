@@ -69,6 +69,7 @@ jobs:
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           EMAIL_HOST_USER: ${{ secrets.EMAIL_HOST_USER }}
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
           ALLOWED_HOSTS: ${{ vars.ALLOWED_HOSTS || 'it-cons.com,www.it-cons.com,localhost,127.0.0.1' }}
@@ -78,20 +79,28 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
-          envs: SECRET_KEY,DOCKER_USERNAME,EMAIL_HOST_USER,EMAIL_PASSWORD,ALLOWED_HOSTS,ENABLE_HTTPS,NGINX_CONF
+          envs: SECRET_KEY,DOCKER_USERNAME,DOCKER_PASSWORD,EMAIL_HOST_USER,EMAIL_PASSWORD,ALLOWED_HOSTS,ENABLE_HTTPS,NGINX_CONF
           script: |
             cd ~/ironlane-freight
 
-            printf "DEBUG=False\nSECRET_KEY=%s\nDOCKER_USERNAME=%s\nEMAIL_HOST_USER=%s\nEMAIL_PASSWORD=%s\nALLOWED_HOSTS=%s\nENABLE_HTTPS=%s\nNGINX_CONF=%s\n" \
-              "$SECRET_KEY" "$DOCKER_USERNAME" "$EMAIL_HOST_USER" "$EMAIL_PASSWORD" "$ALLOWED_HOSTS" "$ENABLE_HTTPS" "$NGINX_CONF" > .env
+            cat << EOF > .env
+            DEBUG=False
+            SECRET_KEY="$SECRET_KEY"
+            DOCKER_USERNAME="$DOCKER_USERNAME"
+            EMAIL_HOST_USER="$EMAIL_HOST_USER"
+            EMAIL_PASSWORD="$EMAIL_PASSWORD"
+            ALLOWED_HOSTS="$ALLOWED_HOSTS"
+            ENABLE_HTTPS="$ENABLE_HTTPS"
+            NGINX_CONF="$NGINX_CONF"
+            EOF
 
             sudo mkdir -p /var/www/certbot
 
-            echo "${{ secrets.DOCKER_PASSWORD }}" | sudo docker login -u "$DOCKER_USERNAME" --password-stdin
-            sudo docker compose pull
-            sudo docker compose up -d --force-recreate
+            echo "$DOCKER_PASSWORD" | sudo docker login -u "$DOCKER_USERNAME" --password-stdin
+            sudo docker compose --env-file .env pull
+            sudo docker compose --env-file .env up -d --force-recreate
 
-            sudo docker compose exec -T backend python source/manage.py migrate --noinput
-            sudo docker compose exec -T backend python source/manage.py collectstatic --noinput --clear
+            sudo docker compose --env-file .env exec -T backend python source/manage.py migrate --noinput
+            sudo docker compose --env-file .env exec -T backend python source/manage.py collectstatic --noinput --clear
 
             sudo docker image prune -f
