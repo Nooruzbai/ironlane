@@ -4,8 +4,8 @@ from django.core import mail
 from django.test import TestCase
 from django.urls import reverse
 
+from main_app.forms import QuoteRequestForm
 from main_app.models import DriverApplication, QuoteRequest
-from main_app.schemas import QuoteRequestSchema
 
 VALID_QUOTE = {
     "full_name": "Jane Shipper",
@@ -21,34 +21,32 @@ VALID_QUOTE = {
 }
 
 
-class QuoteRequestSchemaTests(TestCase):
+class QuoteRequestFormTests(TestCase):
     def test_valid_data(self):
-        data, errors = QuoteRequestSchema.from_post(VALID_QUOTE)
-        self.assertEqual(errors, {})
-        self.assertEqual(data.weight_kg, 18000)
+        form = QuoteRequestForm(VALID_QUOTE)
+        self.assertTrue(form.is_valid(), form.errors)
+        self.assertEqual(form.cleaned_data["weight_kg"], 18000)
 
     def test_empty_optional_fields_are_ignored(self):
-        data, errors = QuoteRequestSchema.from_post(
-            {**VALID_QUOTE, "weight_kg": "", "pickup_date": ""}
-        )
-        self.assertEqual(errors, {})
-        self.assertIsNone(data.weight_kg)
+        form = QuoteRequestForm({**VALID_QUOTE, "weight_kg": "", "pickup_date": ""})
+        self.assertTrue(form.is_valid(), form.errors)
+        self.assertIsNone(form.cleaned_data["weight_kg"])
 
     def test_field_errors(self):
-        data, errors = QuoteRequestSchema.from_post(
+        form = QuoteRequestForm(
             {**VALID_QUOTE, "email": "nope", "freight_type": "rocket", "full_name": ""}
         )
-        self.assertIsNone(data)
-        self.assertEqual(set(errors), {"email", "freight_type", "full_name"})
+        self.assertFalse(form.is_valid())
+        self.assertEqual(set(form.error_dict()), {"email", "freight_type", "full_name"})
 
     def test_past_pickup_date_rejected(self):
         past = (date.today() - timedelta(days=1)).isoformat()
-        _, errors = QuoteRequestSchema.from_post({**VALID_QUOTE, "pickup_date": past})
-        self.assertIn("pickup_date", errors)
+        form = QuoteRequestForm({**VALID_QUOTE, "pickup_date": past})
+        self.assertIn("pickup_date", form.error_dict())
 
     def test_same_origin_and_destination_rejected(self):
-        _, errors = QuoteRequestSchema.from_post({**VALID_QUOTE, "destination": "dallas, tx"})
-        self.assertIn("form", errors)
+        form = QuoteRequestForm({**VALID_QUOTE, "destination": "dallas, tx"})
+        self.assertIn("destination", form.error_dict())
 
 
 class PageTests(TestCase):

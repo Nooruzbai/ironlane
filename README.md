@@ -10,13 +10,13 @@ stored in the database (visible in Django admin) and emailed to dispatch.
 |------------|----------------------------------|--------------------------------------------|
 | Python     | 3.13                             | Mature release, supported until Oct 2029   |
 | Django     | 5.2 LTS                          | Long-term support until April 2028         |
-| Pydantic   | 2.x + pydantic-settings          | Typed env config and form validation       |
+| Pydantic   | 2.x + pydantic-settings          | Typed env config                           |
 | Tailwind   | 4.3 (standalone CLI via npm)     | Utility CSS, built into `output.css`       |
 | Serving    | gunicorn + whitenoise + nginx    | Same setup as alano_group                  |
 | Tooling    | uv, ruff                         | Dependency management and lint/format      |
 
 Version ranges in `pyproject.toml` are capped at the next major/minor (`django<5.3`,
-`pydantic<3`), and `uv.lock` pins the exact versions.
+`pydantic-settings<3`), and `uv.lock` pins the exact versions.
 
 ## Local development
 
@@ -46,7 +46,7 @@ uv run python source/manage.py test main_app
 source/
   ironlane/            Django project (config.py = pydantic-settings, settings.py)
   main_app/
-    schemas.py         Pydantic schemas for the quote & driver forms
+    forms.py           Django forms for the quote & driver forms
     models.py          QuoteRequest, DriverApplication (managed in /admin)
     notifications.py   Email to dispatch
     templates/         base, index, quote, careers, partials/

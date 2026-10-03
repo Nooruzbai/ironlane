@@ -9,12 +9,10 @@ silently falling back to a default.
 from pathlib import Path
 from typing import Annotated
 
-from pydantic import EmailStr, Field, SecretStr, field_validator, model_validator
+from pydantic import Field, SecretStr, field_validator
 from pydantic_settings import BaseSettings, NoDecode, SettingsConfigDict
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
-
-DEV_SECRET_KEY = "2oBN1BXEbeVjawe+yRTc9rvz2dn8w1a8DJ8Rs7sJdtc="
 
 
 class AppSettings(BaseSettings):
@@ -27,7 +25,8 @@ class AppSettings(BaseSettings):
     debug: bool = False
     # In Docker this points at a mounted volume so submissions survive redeploys
     database_path: Path = REPO_ROOT / "source" / "db.sqlite3"
-    secret_key: SecretStr = SecretStr(DEV_SECRET_KEY)
+    # Required, with no fallback: put SECRET_KEY in `.env` locally and in GitHub secrets
+    secret_key: SecretStr
 
     # Comma-separated in the environment: ALLOWED_HOSTS=example.com,www.example.com
     allowed_hosts: Annotated[list[str], NoDecode] = Field(
@@ -44,9 +43,9 @@ class AppSettings(BaseSettings):
     email_use_ssl: bool = True
     email_host_user: str = ""
     email_password: SecretStr = SecretStr("")
-    default_from_email: EmailStr = "azat.usubakunov@gmail.com"
+    default_from_email: str = "azat.usubakunov@gmail.com"
     # Where quote requests and driver applications are delivered
-    inbox_email: EmailStr = "azat.usubakunov@gmail.com"
+    inbox_email: str = "azat.usubakunov@gmail.com"
 
     @field_validator("allowed_hosts", mode="before")
     @classmethod
@@ -54,15 +53,13 @@ class AppSettings(BaseSettings):
         if isinstance(value, str):
             return [part.strip() for part in value.split(",") if part.strip()]
         return value
-    
-    @model_validator(mode="after")
-    def _require_real_secret_in_production(self) -> "AppSettings":
-        val = self.secret_key.get_secret_value().strip('\'"')
-        if not self.debug and (not val or val == DEV_SECRET_KEY):
-            raise ValueError(
-                "SECRET_KEY must be explicitly set to a production value when DEBUG is False"
-            )
-        return self
+
+    @field_validator("secret_key")
+    @classmethod
+    def _secret_key_not_blank(cls, value: SecretStr) -> SecretStr:
+        if not value.get_secret_value().strip():
+            raise ValueError("SECRET_KEY must not be empty")
+        return value
 
 
 config = AppSettings()

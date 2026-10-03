@@ -26,7 +26,7 @@ RUN uv sync --frozen --no-dev --no-install-project --no-cache
 COPY source ./source
 COPY --from=build-css /app/source/static/css/output.css ./source/static/css/output.css
 
-# Settings refuse the dev secret when DEBUG is off, so pass a throwaway one for this build step
+# SECRET_KEY is required at startup; collectstatic signs nothing, so a throwaway value is enough
 RUN SECRET_KEY=collectstatic-build-only python source/manage.py collectstatic --noinput
 
 RUN useradd --create-home --uid 1000 app && mkdir -p /app/data && chown -R app:app /app
@@ -34,4 +34,4 @@ USER app
 
 EXPOSE 8000
 
-CMD ["gunicorn", "--chdir", "source", "--bind", "0.0.0.0:8000", "--workers", "3", "--access-logfile", "-", "ironlane.wsgi:application"]
+CMD ["gunicorn", "--chdir", "source", "--bind", "0.0.0.0:8000", "--workers", "3", "--threads", "4", "--access-logfile", "-", "ironlane.wsgi:application"]

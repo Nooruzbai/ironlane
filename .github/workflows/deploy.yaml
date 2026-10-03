@@ -1,17 +1,27 @@
 name: Test, Build and Deploy to EC2
 
+# Pull requests only run tests. Deploys happen on pushes to master after tests pass.
 on:
   push:
     branches: [master]
   pull_request:
 
+# Least privilege for the built-in GITHUB_TOKEN: jobs can read the repo, nothing else.
+permissions:
+  contents: read
+
+# Third-party actions are pinned to full commit SHAs (the comment shows the tag) so a moved
+# or compromised tag cannot run new code with access to the Docker Hub and EC2 secrets.
 jobs:
   test:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
 
-      - uses: astral-sh/setup-uv@v6
+      - uses: astral-sh/setup-uv@d0cc045d04ccac9d8b7881df0226f9e82c39688e # v6
         with:
           version: "0.12.19"
 
@@ -24,39 +34,73 @@ jobs:
       - name: Django checks and tests
         env:
           DEBUG: "True"
+          # Throwaway key for CI only; production uses the SECRET_KEY repository secret
+          SECRET_KEY: ci-only-not-a-real-secret
         run: |
           uv run python source/manage.py check
           uv run python source/manage.py makemigrations --check --dry-run
           uv run python source/manage.py test main_app
 
+      - name: Validate nginx configs
+        # A broken config would take the site down on deploy, so catch it here first.
+        # Uses a self-signed stand-in for the Let's Encrypt certificate.
+        run: |
+          certs="$RUNNER_TEMP/letsencrypt/live/it-cons.com"
+          mkdir -p "$certs"
+          openssl req -x509 -nodes -newkey rsa:2048 -days 1 -subj "/CN=it-cons.com" \
+            -keyout "$certs/privkey.pem" -out "$certs/fullchain.pem" 2>/dev/null
+          for conf in nginx.conf nginx-http.conf; do
+            echo "Checking $conf"
+            docker run --rm --add-host backend:127.0.0.1 \
+              -v "$PWD/$conf:/etc/nginx/conf.d/default.conf:ro" \
+              -v "$RUNNER_TEMP/letsencrypt:/etc/letsencrypt:ro" \
+              nginx:stable-alpine nginx -t
+          done
+
   build-and-push:
     needs: test
-    if: github.event_name == 'push'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
 
       - name: Login to Docker Hub
-        uses: docker/login-action@v3
+        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/ironlane-backend:latest
+          # :latest is what the server runs; the commit tag keeps every build for rollbacks
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/ironlane-backend:latest
+            ${{ secrets.DOCKER_USERNAME }}/ironlane-backend:${{ github.sha }}
 
   deploy:
     needs: build-and-push
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    # Shows deploys under the repo's Environments tab, where approvals can be required later
+    environment: production
+    # Never run two deploys at once; a newer push waits for the current deploy to finish
+    concurrency:
+      group: deploy-production
+      cancel-in-progress: false
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
 
       - name: Copy config files to EC2
-        uses: appleboy/scp-action@v1
+        uses: appleboy/scp-action@ff85246acaad7bdce478db94a363cd2bf7c90345 # v1
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
@@ -65,7 +109,7 @@ jobs:
           target: "~/ironlane-freight"
 
       - name: SSH into EC2 and restart
-        uses: appleboy/ssh-action@v1
+        uses: appleboy/ssh-action@0ff4204d59e8e51228ff73bce53f80d53301dee2 # v1
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
@@ -82,8 +126,12 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           envs: SECRET_KEY,DOCKER_USERNAME,DOCKER_PASSWORD,EMAIL_HOST_USER,EMAIL_PASSWORD,INBOX_EMAIL,ALLOWED_HOSTS,ENABLE_HTTPS,NGINX_CONF
           script: |
+            # Stop at the first failing command so a broken deploy fails the job
+            set -e
             cd ~/ironlane-freight
 
+            # .env holds secrets: create it readable by its owner only
+            umask 077
             cat << EOF > .env
             DEBUG=False
             SECRET_KEY="$SECRET_KEY"
@@ -95,6 +143,8 @@ jobs:
             ENABLE_HTTPS="$ENABLE_HTTPS"
             NGINX_CONF="$NGINX_CONF"
             EOF
+            chmod 600 .env
+            umask 022
 
             sudo mkdir -p /var/www/certbot
 
@@ -105,4 +155,6 @@ jobs:
             sudo docker compose --env-file .env exec -T backend python source/manage.py migrate --noinput
             sudo docker compose --env-file .env exec -T backend python source/manage.py collectstatic --noinput --clear
 
+            # Don't leave Docker Hub credentials stored on the server
+            sudo docker logout
             sudo docker image prune -f

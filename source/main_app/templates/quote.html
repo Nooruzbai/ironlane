@@ -37,8 +37,8 @@
                     <label for="id_freight_type" class="form-label">{% translate "Service" %} <span class="text-signal-dark">*</span></label>
                     <select id="id_freight_type" name="freight_type" class="form-input {% if errors.freight_type %}is-invalid{% endif %}" required>
                         <option value="">{% translate "Select a service" %}</option>
-                        {% for key, label in freight_types %}
-                        <option value="{{ key.value }}" {% if values.freight_type == key.value %}selected{% endif %}>{{ label }}</option>
+                        {% for value, label in freight_types %}
+                        <option value="{{ value }}" {% if values.freight_type == value %}selected{% endif %}>{{ label }}</option>
                         {% endfor %}
                     </select>
                     {% if errors.freight_type %}<p class="form-error">{{ errors.freight_type }}</p>{% endif %}

@@ -12,6 +12,8 @@ logger = logging.getLogger(__name__)
 def _send(subject: str, lines: list[tuple[str, object]], body: str, reply_to: str) -> bool:
     details = "\n".join(f"{label:<14}{value or '-'}" for label, value in lines)
     text = f"{details}\n\n{body or '(no message)'}\n\n-- Sent from the IronLane Freight website"
+    # Visitors control parts of the subject; header values must not contain line breaks
+    subject = " ".join(subject.split())
     try:
         EmailMessage(
             subject=subject,

@@ -39,8 +39,8 @@
                         <label for="id_license_class" class="form-label">{% translate "License" %} <span class="text-signal-dark">*</span></label>
                         <select id="id_license_class" name="license_class" class="form-input {% if errors.license_class %}is-invalid{% endif %}" required>
                             <option value="">{% translate "Select license" %}</option>
-                            {% for key, label in license_classes %}
-                            <option value="{{ key.value }}" {% if values.license_class == key.value %}selected{% endif %}>{{ label }}</option>
+                            {% for value, label in license_classes %}
+                            <option value="{{ value }}" {% if values.license_class == value %}selected{% endif %}>{{ label }}</option>
                             {% endfor %}
                         </select>
                         {% if errors.license_class %}<p class="form-error">{{ errors.license_class }}</p>{% endif %}

@@ -3,14 +3,9 @@ from django.shortcuts import redirect, render
 from django.utils.translation import gettext as _
 from django.views.generic import TemplateView, View
 
-from main_app.models import DriverApplication, QuoteRequest
+from main_app.forms import DriverApplicationForm, QuoteRequestForm
+from main_app.models import FreightType, LicenseClass
 from main_app.notifications import notify_driver_application, notify_quote_request
-from main_app.schemas import (
-    FREIGHT_TYPE_LABELS,
-    LICENSE_CLASS_LABELS,
-    DriverApplicationSchema,
-    QuoteRequestSchema,
-)
 
 
 class IndexView(TemplateView):
@@ -27,7 +22,7 @@ class QuoteView(View):
             {
                 "values": values or {"freight_type": request.GET.get("service", "")},
                 "errors": errors or {},
-                "freight_types": FREIGHT_TYPE_LABELS.items(),
+                "freight_types": FreightType.choices,
             },
             status=status,
         )
@@ -36,11 +31,11 @@ class QuoteView(View):
         return self.render_form(request)
 
     def post(self, request):
-        data, errors = QuoteRequestSchema.from_post(request.POST)
-        if data is None:
-            return self.render_form(request, request.POST, errors, status=400)
-        if not data.website:
-            notify_quote_request(QuoteRequest.from_schema(data))
+        form = QuoteRequestForm(request.POST)
+        if not form.is_valid():
+            return self.render_form(request, request.POST, form.error_dict(), status=400)
+        if not form.is_spam:
+            notify_quote_request(form.save())
         messages.success(
             request, _("Thanks! A dispatcher will get back to you within one business hour.")
         )
@@ -57,7 +52,7 @@ class CareersView(View):
             {
                 "values": values or {},
                 "errors": errors or {},
-                "license_classes": LICENSE_CLASS_LABELS.items(),
+                "license_classes": LicenseClass.choices,
             },
             status=status,
         )
@@ -66,11 +61,11 @@ class CareersView(View):
         return self.render_form(request)
 
     def post(self, request):
-        data, errors = DriverApplicationSchema.from_post(request.POST)
-        if data is None:
-            return self.render_form(request, request.POST, errors, status=400)
-        if not data.website:
-            notify_driver_application(DriverApplication.from_schema(data))
+        form = DriverApplicationForm(request.POST)
+        if not form.is_valid():
+            return self.render_form(request, request.POST, form.error_dict(), status=400)
+        if not form.is_spam:
+            notify_driver_application(form.save())
         messages.success(
             request, _("Application received! Our recruiting team will call you shortly.")
         )
