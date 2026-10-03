@@ -43,9 +43,9 @@ class AppSettings(BaseSettings):
     email_use_ssl: bool = True
     email_host_user: str = ""
     email_password: SecretStr = SecretStr("")
-    default_from_email: str = "azat.usubakunov@gmail.com"
+    default_from_email: str = "client.book.team@gmail.com"
     # Where quote requests and driver applications are delivered
-    inbox_email: str = "azat.usubakunov@gmail.com"
+    inbox_email: str = "client.book.team@gmail.com"
 
     @field_validator("allowed_hosts", mode="before")
     @classmethod

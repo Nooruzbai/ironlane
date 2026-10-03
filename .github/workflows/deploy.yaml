@@ -116,7 +116,7 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           EMAIL_HOST_USER: ${{ secrets.EMAIL_HOST_USER }}
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
-          INBOX_EMAIL: ${{ vars.INBOX_EMAIL || 'azat.usubakunov@gmail.com' }}
+          INBOX_EMAIL: ${{ vars.INBOX_EMAIL || 'client.book.team@gmail.com' }}
           ALLOWED_HOSTS: ${{ vars.ALLOWED_HOSTS || 'it-cons.com,www.it-cons.com,localhost,127.0.0.1' }}
           ENABLE_HTTPS: ${{ secrets.ENABLE_HTTPS || 'True' }}
           NGINX_CONF: ${{ vars.NGINX_CONF || 'nginx.conf' }}
