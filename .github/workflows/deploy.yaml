@@ -154,6 +154,9 @@ jobs:
 
             sudo docker compose --env-file .env exec -T backend python source/manage.py migrate --noinput
             sudo docker compose --env-file .env exec -T backend python source/manage.py collectstatic --noinput --clear
+            # Django loads the static manifest when it starts, which was before collectstatic
+            # replaced the files; restart so pages link to the new hashed CSS/JS names
+            sudo docker compose --env-file .env restart backend
 
             # Don't leave Docker Hub credentials stored on the server
             sudo docker logout
