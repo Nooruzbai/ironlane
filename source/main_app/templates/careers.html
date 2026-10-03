@@ -35,17 +35,6 @@
                     {% include "partials/field.html" with name="full_name" label=_("Full name") value=values.full_name error=errors.full_name required=True wrapper="sm:col-span-2" %}
                     {% include "partials/field.html" with name="email" label=_("Email") type="email" value=values.email error=errors.email required=True %}
                     {% include "partials/field.html" with name="phone" label=_("Phone") type="tel" value=values.phone error=errors.phone required=True %}
-                    <div>
-                        <label for="id_license_class" class="form-label">{% translate "License" %} <span class="text-signal-dark">*</span></label>
-                        <select id="id_license_class" name="license_class" class="form-input {% if errors.license_class %}is-invalid{% endif %}" required>
-                            <option value="">{% translate "Select license" %}</option>
-                            {% for value, label in license_classes %}
-                            <option value="{{ value }}" {% if values.license_class == value %}selected{% endif %}>{{ label }}</option>
-                            {% endfor %}
-                        </select>
-                        {% if errors.license_class %}<p class="form-error">{{ errors.license_class }}</p>{% endif %}
-                    </div>
-                    {% include "partials/field.html" with name="years_experience" label=_("Years of experience") type="number" value=values.years_experience error=errors.years_experience required=True %}
                 </div>
                 <div class="mt-6">
                     {% include "partials/field.html" with name="message" label=_("Anything else we should know?") type="textarea" value=values.message error=errors.message %}

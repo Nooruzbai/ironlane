@@ -59,38 +59,17 @@
       .phone-link:hover {
         color: #ffffff;
       }
-      #site-header.site-header--light {
-        background: rgba(255, 255, 255, 0.9);
-        border-color: rgba(15, 23, 42, 0.08);
-        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
-      }
-      #site-header.site-header--light .brand-text,
-      #site-header.site-header--light .nav-link,
-      #site-header.site-header--light .phone-link {
-        color: #0f172a;
-      }
-      #site-header.site-header--light .brand-suffix {
-        color: #f59e0b;
-      }
-      #site-header.site-header--light .nav-link:hover,
-      #site-header.site-header--light .phone-link:hover {
-        color: #f59e0b;
-      }
-      #site-header.site-header--light .btn-primary {
-        box-shadow: 0 10px 24px rgba(245, 158, 11, 0.26);
-      }
-      #site-header.site-header--light #mobile-menu {
-        background: rgba(255, 255, 255, 0.96);
+      /* Once scrolled, stay dark and solid with an amber edge and a shadow, so the bar
+         stands apart from both the white and the dark sections below it. */
+      #site-header.site-header--scrolled {
+        background: rgba(15, 23, 42, 0.98);
+        border-bottom-color: rgba(245, 158, 11, 0.55);
+        box-shadow: 0 8px 24px rgba(2, 6, 23, 0.35);
       }
       .mobile-menu-button {
         background: rgba(255, 255, 255, 0.06);
         border: 1px solid rgba(255, 255, 255, 0.18);
         color: #ffffff;
-      }
-      .site-header--light .mobile-menu-button {
-        background: rgba(15, 23, 42, 0.04);
-        border-color: rgba(15, 23, 42, 0.12);
-        color: #0f172a;
       }
       /* Language toggle (EN / KY) */
       .lang-switch {
@@ -128,16 +107,6 @@
         padding: 0.6rem 0.75rem;
         border-radius: 0.5rem;
       }
-      .site-header--light .lang-switch {
-        border-color: rgba(15, 23, 42, 0.12);
-        background: rgba(15, 23, 42, 0.04);
-      }
-      .site-header--light .lang-btn {
-        color: #0f172a;
-      }
-      .site-header--light .lang-btn.is-active {
-        color: #0f172a;
-      }
       @media (max-width: 767px) {
         #site-header .brand-text {
           font-size: 1.05rem;
@@ -159,9 +128,10 @@
     {% block extra_head %}{% endblock %}
   </head>
   <body class="bg-white text-steel-900 font-sans antialiased">
+    <div id="header-app">
     <header
       id="site-header"
-      :class="{ 'site-header--light shadow-lg': scrolled }"
+      :class="{ 'site-header--scrolled': scrolled }"
       class="fixed inset-x-0 top-0 z-50 border-b border-transparent bg-asphalt/95 text-white backdrop-blur transition-all duration-300 {% block header_class %}{% endblock %}"
     >
       <nav
@@ -260,6 +230,7 @@
         </div>
       </div>
     </header>
+    </div>
 
     <main {% block main_attrs %}{% endblock %}>{% block content %}{% endblock %}</main>
 

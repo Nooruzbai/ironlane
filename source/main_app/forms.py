@@ -111,10 +111,8 @@ class DriverApplicationForm(PublicForm):
     full_name = short_text()
     email = email_field()
     phone = phone_field()
-    years_experience = forms.IntegerField(min_value=0, max_value=60, error_messages=NUMBER_ERRORS)
     message = message_field()
 
     class Meta:
         model = DriverApplication
-        fields = ["full_name", "email", "phone", "license_class", "years_experience", "message"]
-        error_messages = {"license_class": CHOICE_ERRORS}
+        fields = ["full_name", "email", "phone", "message"]

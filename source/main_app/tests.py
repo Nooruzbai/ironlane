@@ -66,7 +66,10 @@ class QuoteViewTests(TestCase):
         self.assertRedirects(response, reverse("quote"))
         self.assertEqual(QuoteRequest.objects.count(), 1)
         self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].reply_to, ["jane@acme-goods.com"])
+        sent = mail.outbox[0]
+        self.assertEqual(sent.reply_to, ["Jane Shipper <jane@acme-goods.com>"])
+        self.assertIn("Jane Shipper via", sent.from_email)
+        self.assertIn("Dallas, TX", sent.alternatives[0].content)
 
     def test_invalid_submission_shows_errors(self):
         response = self.client.post(reverse("quote"), {**VALID_QUOTE, "email": "bad"})
@@ -89,9 +92,7 @@ class CareersViewTests(TestCase):
                 "full_name": "Sam Driver",
                 "email": "sam@gmail.com",
                 "phone": "555-010-3000",
-                "license_class": "cdl_a",
-                "years_experience": "7",
             },
         )
         self.assertRedirects(response, reverse("careers"))
-        self.assertEqual(DriverApplication.objects.get().years_experience, 7)
+        self.assertEqual(DriverApplication.objects.get().phone, "555-010-3000")

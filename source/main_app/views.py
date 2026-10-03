@@ -4,7 +4,7 @@ from django.utils.translation import gettext as _
 from django.views.generic import TemplateView, View
 
 from main_app.forms import DriverApplicationForm, QuoteRequestForm
-from main_app.models import FreightType, LicenseClass
+from main_app.models import FreightType
 from main_app.notifications import notify_driver_application, notify_quote_request
 
 
@@ -35,7 +35,7 @@ class QuoteView(View):
         if not form.is_valid():
             return self.render_form(request, request.POST, form.error_dict(), status=400)
         if not form.is_spam:
-            notify_quote_request(form.save())
+            notify_quote_request(form.save(), request)
         messages.success(
             request, _("Thanks! A dispatcher will get back to you within one business hour.")
         )
@@ -49,11 +49,7 @@ class CareersView(View):
         return render(
             request,
             self.template_name,
-            {
-                "values": values or {},
-                "errors": errors or {},
-                "license_classes": LicenseClass.choices,
-            },
+            {"values": values or {}, "errors": errors or {}},
             status=status,
         )
 
@@ -65,7 +61,7 @@ class CareersView(View):
         if not form.is_valid():
             return self.render_form(request, request.POST, form.error_dict(), status=400)
         if not form.is_spam:
-            notify_driver_application(form.save())
+            notify_driver_application(form.save(), request)
         messages.success(
             request, _("Application received! Our recruiting team will call you shortly.")
         )

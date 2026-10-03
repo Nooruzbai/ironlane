@@ -23,8 +23,8 @@ class QuoteRequestAdmin(admin.ModelAdmin):
 
 @admin.register(DriverApplication)
 class DriverApplicationAdmin(admin.ModelAdmin):
-    list_display = ("full_name", "license_class", "years_experience", "is_reviewed", "created_at")
-    list_filter = ("is_reviewed", "license_class")
+    list_display = ("full_name", "email", "phone", "is_reviewed", "created_at")
+    list_filter = ("is_reviewed", "created_at")
     list_editable = ("is_reviewed",)
     search_fields = ("full_name", "email", "phone")
     readonly_fields = ("created_at",)

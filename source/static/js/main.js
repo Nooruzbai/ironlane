@@ -12,9 +12,11 @@
   // Django owns {{ }}, so Vue templates use [[ ]].
   const delimiters = ["[[", "]]"];
 
-  // Header: mobile menu + solid header once the page scrolls past the hero
-  const header = document.getElementById("site-header");
-  if (header) {
+  // Header: mobile menu + solid header once the page scrolls past the hero.
+  // Mounted on a wrapper because Vue ignores bindings on its own mount element,
+  // and <header> needs its :class binding.
+  const headerApp = document.getElementById("header-app");
+  if (headerApp) {
     createApp({
       delimiters,
       setup() {
@@ -31,7 +33,7 @@
         onBeforeUnmount(() => window.removeEventListener("scroll", onScroll));
         return { menuOpen, scrolled, closeMenuOnLink };
       },
-    }).mount(header);
+    }).mount(headerApp);
   }
 
   // Page content: only mounted where the template opts in with data-vue

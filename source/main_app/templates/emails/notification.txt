@@ -1,0 +1,12 @@
+{% autoescape off %}{{ heading }} - {{ created_at|date:"d M Y, H:i" }} UTC
+
+{% for label, value in rows %}{{ label }}: {{ value }}
+{% endfor %}
+Message:
+{{ message|default:"(no message)" }}
+
+Reply to this email to answer {{ email }} directly.
+Open in admin: {{ admin_url }}
+
+-- Sent from the {{ site_name }}
+{% endautoescape %}

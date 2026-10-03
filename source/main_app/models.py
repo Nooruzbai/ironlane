@@ -11,11 +11,6 @@ class FreightType(models.TextChoices):
     OTHER = "other", _("Other")
 
 
-class LicenseClass(models.TextChoices):
-    CLASS_A = "cdl_a", _("CDL Class A")
-    CLASS_B = "cdl_b", _("CDL Class B")
-
-
 class QuoteRequest(models.Model):
     full_name = models.CharField(max_length=120)
     company = models.CharField(max_length=120, blank=True)
@@ -41,8 +36,6 @@ class DriverApplication(models.Model):
     full_name = models.CharField(max_length=120)
     email = models.EmailField()
     phone = models.CharField(max_length=25)
-    license_class = models.CharField(max_length=10, choices=LicenseClass)
-    years_experience = models.PositiveSmallIntegerField()
     message = models.TextField(blank=True)
     is_reviewed = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -51,4 +44,4 @@ class DriverApplication(models.Model):
         ordering = ["-created_at"]
 
     def __str__(self) -> str:
-        return f"{self.full_name} ({self.get_license_class_display()})"
+        return f"{self.full_name} <{self.email}>"
