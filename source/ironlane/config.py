@@ -31,7 +31,7 @@ class AppSettings(BaseSettings):
 
     # Comma-separated in the environment: ALLOWED_HOSTS=example.com,www.example.com
     allowed_hosts: Annotated[list[str], NoDecode] = Field(
-        default=["ironlane-freight.com", "www.ironlane-freight.com", "localhost", "127.0.0.1"]
+        default=["it-cons.com", "www.it-cons.com", "localhost", "127.0.0.1"]
     )
 
     # Set ENABLE_HTTPS=False only while running without a TLS certificate,
@@ -44,7 +44,7 @@ class AppSettings(BaseSettings):
     email_use_ssl: bool = True
     email_host_user: str = ""
     email_password: SecretStr = SecretStr("")
-    default_from_email: EmailStr = "no-reply@ironlane-freight.com"
+    default_from_email: EmailStr = "azat.usubakunov@gmail.com"
     # Where quote requests and driver applications are delivered
     inbox_email: EmailStr = "azat.usubakunov@gmail.com"
 

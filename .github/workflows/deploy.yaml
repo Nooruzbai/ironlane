@@ -72,6 +72,7 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           EMAIL_HOST_USER: ${{ secrets.EMAIL_HOST_USER }}
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          INBOX_EMAIL: ${{ vars.INBOX_EMAIL || 'azat.usubakunov@gmail.com' }}
           ALLOWED_HOSTS: ${{ vars.ALLOWED_HOSTS || 'it-cons.com,www.it-cons.com,localhost,127.0.0.1' }}
           ENABLE_HTTPS: ${{ secrets.ENABLE_HTTPS || 'True' }}
           NGINX_CONF: ${{ vars.NGINX_CONF || 'nginx.conf' }}
@@ -79,7 +80,7 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
-          envs: SECRET_KEY,DOCKER_USERNAME,DOCKER_PASSWORD,EMAIL_HOST_USER,EMAIL_PASSWORD,ALLOWED_HOSTS,ENABLE_HTTPS,NGINX_CONF
+          envs: SECRET_KEY,DOCKER_USERNAME,DOCKER_PASSWORD,EMAIL_HOST_USER,EMAIL_PASSWORD,INBOX_EMAIL,ALLOWED_HOSTS,ENABLE_HTTPS,NGINX_CONF
           script: |
             cd ~/ironlane-freight
 
@@ -89,6 +90,7 @@ jobs:
             DOCKER_USERNAME="$DOCKER_USERNAME"
             EMAIL_HOST_USER="$EMAIL_HOST_USER"
             EMAIL_PASSWORD="$EMAIL_PASSWORD"
+            INBOX_EMAIL="$INBOX_EMAIL"
             ALLOWED_HOSTS="$ALLOWED_HOSTS"
             ENABLE_HTTPS="$ENABLE_HTTPS"
             NGINX_CONF="$NGINX_CONF"

@@ -24,7 +24,7 @@ if not DEBUG and config.enable_https:
     SECURE_HSTS_SECONDS = 31536000
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
-    # Redirect ironlane-freight.com -> www.ironlane-freight.com (avoids duplicate indexing)
+    # Redirect it-cons.com -> www.it-cons.com (avoids duplicate indexing)
     PREPEND_WWW = config.prepend_www
 
 

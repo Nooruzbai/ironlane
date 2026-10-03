@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /admin/
 
-Sitemap: https://www.ironlane-freight.com/sitemap.xml
+Sitemap: https://www.it-cons.com/sitemap.xml
